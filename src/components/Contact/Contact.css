@@ -1,0 +1,129 @@
+.contact {
+  padding: 6rem 0;
+  background: #f8f6f3;
+  width: 100%;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-align: center;
+}
+
+.contact-container h2 {
+  font-size: 2.5rem;
+  color: #6B3F25;
+  margin-bottom: 1.2rem;
+}
+
+.contact-subtitle {
+  font-size: 1.2rem;
+  color: #8B5E3C;
+  margin-bottom: 4rem;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info-item h3 {
+  color: #6B3F25;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.info-item p {
+  color: #8B5E3C;
+}
+
+.contact-form {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(139, 94, 60, 0.08);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 1.2s;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1.5px solid #e9ded6;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: #f8f6f3;
+  color: #6B3F25;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #A9745B;
+  box-shadow: 0 2px 8px #e9ded6;
+}
+
+.submit-btn {
+  background: #8B5E3C;
+  color: #fff;
+  padding: 1rem 2.2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(139, 94, 60, 0.08);
+}
+
+.submit-btn:hover {
+  background: #6B3F25;
+  transform: translateY(-2px) scale(1.04);
+}
+
+@media (max-width: 900px) {
+  .contact {
+    padding: 4rem 0;
+  }
+  .contact-container h2 {
+    font-size: 2.1rem;
+  }
+  .contact-content {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .contact-form {
+    padding: 1.2rem 0.5rem;
+  }
+  .contact-info {
+    text-align: center;
+  }
+} 
