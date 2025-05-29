@@ -29,7 +29,7 @@
 }
 
 .logo img {
-  height: 60px;
+  height: 100px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -62,8 +62,9 @@
   font-weight: 600;
   font-size: 1.1rem;
   position: relative;
-  padding: 0.3rem 0.7rem;
+  padding: 0.1rem 0.7rem !important;
   transition: color 0.2s;
+  line-height: 1.2;
 }
 
 .nav-menu a::after {
@@ -90,8 +91,8 @@
   background: #8B5E3C;
   color: #fff !important;
   border-radius: 25px;
-  padding: 0.6rem 1.7rem;
-  font-size: 1rem;
+  padding: 0.3rem 1.7rem !important;
+  font-size: 1rem !important;
   margin-left: 1.5rem;
   box-shadow: 0 2px 8px rgba(139, 94, 60, 0.08);
 }

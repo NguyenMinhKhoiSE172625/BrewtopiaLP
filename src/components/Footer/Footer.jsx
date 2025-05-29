@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-content">
           <div className="footer-logo">
-            <img src="/src/assets/images/logo-vertical.png" alt="Brewtopia Logo" />
+            <img src="/Logo2-T.png" alt="Brewtopia Logo" />
             <p>Khám phá không gian cafe hoàn hảo cho bạn</p>
           </div>
           
