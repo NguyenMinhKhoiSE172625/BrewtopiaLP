@@ -94,13 +94,14 @@
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
   box-shadow: 0 2px 8px rgba(139, 94, 60, 0.08);
 }
 
 .submit-btn:hover {
   background: #6B3F25;
   transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(139, 94, 60, 0.18);
 }
 
 @media (max-width: 900px) {

@@ -53,6 +53,11 @@
   margin-bottom: 1.5rem;
   color: #A9745B;
   filter: drop-shadow(0 2px 8px #e9ded6);
+  transition: transform 0.3s;
+}
+
+.feature-card:hover .feature-icon {
+  transform: rotate(-8deg) scale(1.12);
 }
 
 .feature-card h3 {

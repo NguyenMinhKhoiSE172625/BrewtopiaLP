@@ -18,7 +18,11 @@ body, .app {
   display: flex;
   flex-direction: column;
   background: #fff;
+}
+
+.app.has-header {
   padding-top: 90px;
+  background: #fff;
 }
 
 main {
@@ -103,4 +107,32 @@ h1, h2, h3, h4, h5, h6 {
   html {
     font-size: 14px;
   }
+}
+
+.primary-btn, .secondary-btn, .submit-btn {
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+.primary-btn:hover, .submit-btn:hover {
+  background: #A9745B;
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(139, 94, 60, 0.18);
+}
+.secondary-btn:hover {
+  background: #f3e9e2;
+  color: #A9745B;
+  border-color: #8B5E3C;
+  transform: translateY(-2px) scale(1.04);
+}
+
+section {
+  animation: fadeIn 1s ease;
+}
+
+.feature-card, .testimonial-card {
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.feature-card:hover, .testimonial-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(139, 94, 60, 0.16);
 }

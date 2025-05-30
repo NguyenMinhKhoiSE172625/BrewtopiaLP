@@ -73,6 +73,11 @@
   object-fit: cover;
   border: 3px solid #A9745B;
   box-shadow: 0 2px 8px #e9ded6;
+  transition: transform 0.3s;
+}
+
+.testimonial-card:hover .testimonial-author img {
+  transform: scale(1.12) rotate(-6deg);
 }
 
 .author-info h4 {
