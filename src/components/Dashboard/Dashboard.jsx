@@ -27,6 +27,123 @@ const Dashboard = () => {
   const [postsLoading, setPostsLoading] = useState(false);
   const [postsError, setPostsError] = useState(null);
 
+  // Events data - code cứng
+  const [events] = useState([
+    {
+      id: 1,
+      title: "Live Acoustic Night",
+      description: "Đêm nhạc acoustic với các nghệ sĩ trẻ tài năng. Thưởng thức cà phê và âm nhạc trong không gian ấm cúng.",
+      date: "2025-01-15",
+      time: "19:30",
+      type: "music",
+      status: "upcoming",
+      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400",
+      maxParticipants: 50,
+      currentParticipants: 23
+    },
+    {
+      id: 2,
+      title: "Workshop Pha Chế Cà Phê",
+      description: "Học cách pha chế các loại cà phê đặc biệt từ barista chuyên nghiệp. Bao gồm tài liệu và nguyên liệu thực hành.",
+      date: "2025-01-20",
+      time: "14:00",
+      type: "workshop",
+      status: "upcoming",
+      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400",
+      maxParticipants: 15,
+      currentParticipants: 8
+    },
+    {
+      id: 3,
+      title: "Triển Lãm Tranh Địa Phương",
+      description: "Trưng bày các tác phẩm nghệ thuật của các họa sĩ địa phương. Cơ hội gặp gỡ và trò chuyện với các nghệ sĩ.",
+      date: "2025-01-10",
+      time: "10:00",
+      type: "exhibition",
+      status: "ongoing",
+      image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400",
+      maxParticipants: 100,
+      currentParticipants: 67
+    },
+    {
+      id: 4,
+      title: "Câu Lạc Bộ Đọc Sách",
+      description: "Thảo luận về cuốn sách 'Nghệ Thuật Sống Chậm'. Chia sẻ cảm nhận và kết nối với những người yêu sách.",
+      date: "2025-01-25",
+      time: "16:00",
+      type: "book-club",
+      status: "upcoming",
+      image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400",
+      maxParticipants: 20,
+      currentParticipants: 12
+    },
+    {
+      id: 5,
+      title: "Đêm Thơ Và Cà Phê",
+      description: "Buổi tối thơ ca với sự tham gia của các thi sĩ trẻ. Không gian lãng mạn với ánh nến và hương cà phê.",
+      date: "2025-01-05",
+      time: "20:00",
+      type: "poetry",
+      status: "completed",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+      maxParticipants: 30,
+      currentParticipants: 30
+    },
+    {
+      id: 6,
+      title: "Yoga Buổi Sáng",
+      description: "Bắt đầu ngày mới với buổi yoga nhẹ nhàng. Sau đó thưởng thức breakfast đặc biệt của quán.",
+      date: "2025-01-30",
+      time: "07:00",
+      type: "wellness",
+      status: "upcoming",
+      image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400",
+      maxParticipants: 25,
+      currentParticipants: 15
+    }
+  ]);
+
+  // Helper functions cho events
+  const getEventTypeIcon = (type) => {
+    const icons = {
+      music: '🎵',
+      workshop: '🎓',
+      exhibition: '🎨',
+      'book-club': '📚',
+      poetry: '✍️',
+      wellness: '🧘‍♀️'
+    };
+    return icons[type] || '📅';
+  };
+
+  const getEventStatusColor = (status) => {
+    const colors = {
+      upcoming: '#28a745',
+      ongoing: '#ffc107',
+      completed: '#6c757d'
+    };
+    return colors[status] || '#6c757d';
+  };
+
+  const getEventStatusText = (status) => {
+    const texts = {
+      upcoming: 'Sắp diễn ra',
+      ongoing: 'Đang diễn ra',
+      completed: 'Đã kết thúc'
+    };
+    return texts[status] || 'Không xác định';
+  };
+
+  const formatEventDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('vi-VN', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
   // Hàm lấy danh sách posts
   const fetchPosts = async () => {
     try {
@@ -395,6 +512,72 @@ const Dashboard = () => {
               <p>Chưa có bài viết nào.</p>
             </div>
           )}
+        </div>
+
+        {/* Events section */}
+        <div className="dashboard-card events-card">
+          <div className="card-header">
+            <h2>Sự kiện của quán</h2>
+          </div>
+
+          <div className="events-grid">
+            {events.map(event => (
+              <div key={event.id} className="event-item">
+                <div className="event-image">
+                  <img src={event.image} alt={event.title} />
+                  <div
+                    className="event-status"
+                    style={{ backgroundColor: getEventStatusColor(event.status) }}
+                  >
+                    {getEventStatusText(event.status)}
+                  </div>
+                </div>
+
+                <div className="event-content">
+                  <div className="event-header">
+                    <span className="event-type-icon">
+                      {getEventTypeIcon(event.type)}
+                    </span>
+                    <h3>{event.title}</h3>
+                  </div>
+
+                  <p className="event-description">{event.description}</p>
+
+                  <div className="event-details">
+                    <div className="event-datetime">
+                      <span className="event-date">
+                        📅 {formatEventDate(event.date)}
+                      </span>
+                      <span className="event-time">
+                        🕐 {event.time}
+                      </span>
+                    </div>
+
+                    <div className="event-participants">
+                      <span className="participants-count">
+                        👥 {event.currentParticipants}/{event.maxParticipants} người
+                      </span>
+                      <div className="participants-bar">
+                        <div
+                          className="participants-fill"
+                          style={{
+                            width: `${(event.currentParticipants / event.maxParticipants) * 100}%`,
+                            backgroundColor: getEventStatusColor(event.status)
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {event.status === 'upcoming' && (
+                    <button className="join-event-btn">
+                      Tham gia sự kiện
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Modal chỉnh sửa thông tin */}
