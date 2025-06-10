@@ -1,25 +1,81 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import AnimationWrapper from '../AnimationWrapper/AnimationWrapper';
+import ParallaxWrapper from '../ParallaxWrapper/ParallaxWrapper';
 import './Hero.css';
 
 const Hero = () => {
   return (
     <section className="hero" id="home">
       <div className="hero-container">
-        <div className="hero-content">
-          <h1>Tìm Quán Cafe Hoàn Hảo Cho Bạn</h1>
-          <p>
-            Khám phá những quán cafe phù hợp với nhu cầu của bạn - từ không gian yên tĩnh để làm việc
-            đến những góc chill cùng bạn bè. Tìm kiếm theo tiêu chí: máy lạnh, wifi, không gian,
-            và nhiều hơn nữa.
-          </p>
-          <div className="hero-buttons">
-            <a href="#features" className="primary-btn">Khám phá ngay</a>
-            <a href="#download" className="secondary-btn">Tải ứng dụng</a>
+        <AnimationWrapper animation="fadeInLeft" delay={0.2}>
+          <div className="hero-content">
+            <motion.h1
+              initial={{ opacity: 0, y: 50, z: 0 }}
+              animate={{ opacity: 1, y: 0, z: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}
+            >
+              Tìm Quán Cafe Hoàn Hảo Cho Bạn
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 30, z: 0 }}
+              animate={{ opacity: 1, y: 0, z: 0 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}
+            >
+              Khám phá những quán cafe phù hợp với nhu cầu của bạn - từ không gian yên tĩnh để làm việc
+              đến những góc chill cùng bạn bè. Tìm kiếm theo tiêu chí: máy lạnh, wifi, không gian,
+              và nhiều hơn nữa.
+            </motion.p>
+            <motion.div
+              className="hero-buttons"
+              initial={{ opacity: 0, y: 20, z: 0 }}
+              animate={{ opacity: 1, y: 0, z: 0 }}
+              transition={{ duration: 0.6, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}
+            >
+              <motion.a
+                href="#features"
+                className="primary-btn"
+                whileHover={{ scale: 1.05, y: -2, z: 0 }}
+                whileTap={{ scale: 0.95, z: 0 }}
+                transition={{ duration: 0.2 }}
+                style={{ willChange: 'transform' }}
+              >
+                Khám phá ngay
+              </motion.a>
+              <motion.a
+                href="#download"
+                className="secondary-btn"
+                whileHover={{ scale: 1.05, y: -2, z: 0 }}
+                whileTap={{ scale: 0.95, z: 0 }}
+                transition={{ duration: 0.2 }}
+                style={{ willChange: 'transform' }}
+              >
+                Tải ứng dụng
+              </motion.a>
+            </motion.div>
           </div>
-        </div>
-        <div className="hero-image">
-          <img src="/Logo2-T.png" alt="Brewtopia App Preview" />
-        </div>
+        </AnimationWrapper>
+
+        <AnimationWrapper animation="fadeInRight" delay={0.4}>
+          <div className="hero-image">
+            <ParallaxWrapper speed={0.2}>
+              <motion.img
+                src="/brew_topia.png"
+                alt="Brewtopia App Preview"
+                whileHover={{ scale: 1.03, rotate: 1, z: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                style={{
+                  willChange: 'transform',
+                  backfaceVisibility: 'hidden',
+                  transform: 'translateZ(0)'
+                }}
+              />
+            </ParallaxWrapper>
+          </div>
+        </AnimationWrapper>
       </div>
     </section>
   );

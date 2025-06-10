@@ -1,0 +1,76 @@
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-element {
+  position: absolute;
+  opacity: 0.12;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 2px 4px rgba(139, 94, 60, 0.1));
+}
+
+.floating-element-1 {
+  top: 8%;
+  left: 8%;
+}
+
+.floating-element-2 {
+  top: 15%;
+  right: 12%;
+}
+
+.floating-element-3 {
+  top: 35%;
+  left: 3%;
+}
+
+.floating-element-4 {
+  top: 45%;
+  right: 8%;
+}
+
+.floating-element-5 {
+  top: 65%;
+  left: 15%;
+}
+
+.floating-element-6 {
+  top: 25%;
+  left: 85%;
+}
+
+.floating-element-7 {
+  top: 75%;
+  right: 20%;
+}
+
+.floating-element-8 {
+  top: 55%;
+  left: 75%;
+}
+
+.floating-element-9 {
+  top: 85%;
+  left: 40%;
+}
+
+.floating-element-10 {
+  top: 5%;
+  left: 50%;
+}
+
+
+
+@media (max-width: 768px) {
+  .floating-elements {
+    display: none;
+  }
+}
