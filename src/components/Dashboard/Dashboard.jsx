@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Chat from '../Chat/Chat';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -578,6 +579,14 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Chat section */}
+        <div className="dashboard-card chat-card">
+          <div className="card-header">
+            <h2>💬 Trò chuyện với khách hàng</h2>
+          </div>
+          <Chat />
         </div>
 
         {/* Modal chỉnh sửa thông tin */}

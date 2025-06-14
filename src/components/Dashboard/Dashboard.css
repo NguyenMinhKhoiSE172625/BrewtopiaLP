@@ -340,6 +340,28 @@
   width: 100%;
 }
 
+/* Socket Tester section styles */
+.socket-tester-card {
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Chat section styles */
+.chat-card {
+  margin-top: 2rem;
+  width: 100%;
+  min-height: 600px;
+}
+
+.chat-card .card-header h2 {
+  position: static;
+  transform: none;
+  text-align: left;
+}
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
