@@ -66,6 +66,22 @@ const DashboardAll = () => {
   const adminCount = users.filter(u => u.role === 'admin').length;
   const userCount = users.filter(u => u.role !== 'admin').length;
 
+  // Xử lý dữ liệu AccStatus
+  const accStatusTypes = ['false', 'premium', 'vip'];
+  const accStatusCount = {
+    user: { false: 0, premium: 0, vip: 0 },
+    admin: { false: 0, premium: 0, vip: 0 }
+  };
+
+  users.forEach(u => {
+    const status = (u.AccStatus || 'false').toString();
+    if (u.role === 'admin') {
+      accStatusCount.admin[status] = (accStatusCount.admin[status] || 0) + 1;
+    } else {
+      accStatusCount.user[status] = (accStatusCount.user[status] || 0) + 1;
+    }
+  });
+
   // Pie chart cho tỷ lệ user/admin
   const pieData = {
     labels: ['Admin', 'User'],
@@ -89,6 +105,25 @@ const DashboardAll = () => {
         borderRadius: 8,
       },
     ],
+  };
+
+  // Bar chart cho AccStatus
+  const accStatusBarData = {
+    labels: accStatusTypes.map(s => s === 'false' ? 'Thường' : s.charAt(0).toUpperCase() + s.slice(1)),
+    datasets: [
+      {
+        label: 'User',
+        data: accStatusTypes.map(s => accStatusCount.user[s]),
+        backgroundColor: palette.brownLight,
+        borderRadius: 8,
+      },
+      {
+        label: 'Admin',
+        data: accStatusTypes.map(s => accStatusCount.admin[s]),
+        backgroundColor: palette.accent,
+        borderRadius: 8,
+      }
+    ]
   };
 
   // Card tổng quan
@@ -130,6 +165,13 @@ const DashboardAll = () => {
                 <Bar data={barData} options={{
                   plugins: { legend: { display: false } },
                   scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                }} />
+              </div>
+              <div className="dashboard-chart">
+                <div className="dashboard-chart-title">Phân loại tài khoản theo AccStatus</div>
+                <Bar data={accStatusBarData} options={{
+                  plugins: { legend: { display: true } },
+                  scales: { y: { beginAtZero: true, stepSize: 1 } }
                 }} />
               </div>
             </div>
