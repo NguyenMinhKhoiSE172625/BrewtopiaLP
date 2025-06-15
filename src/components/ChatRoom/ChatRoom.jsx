@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import socketService from '../../services/socketService';
-import chatService from '../../services/chatService';
 import './ChatRoom.css';
+import { MdPerson } from 'react-icons/md';
 
 const ChatRoom = ({ chatRoom, currentUser, onBack }) => {
   const [messages, setMessages] = useState([]);
@@ -19,7 +19,20 @@ const ChatRoom = ({ chatRoom, currentUser, onBack }) => {
       socketService.removeListener('error');
       // Lắng nghe tin nhắn mới
       socketService.on('receiveMessage', (msg) => {
-        setMessages(prev => [...prev, msg]);
+        // Nếu thiếu sender hoặc createdAt thì bổ sung cho đồng nhất với lịch sử
+        let fixedMsg = { ...msg };
+        // Nếu sender chỉ là id, tìm trong participants của chatRoom
+        if (fixedMsg.sender && typeof fixedMsg.sender === 'string' && chatRoom.participants) {
+          const found = chatRoom.participants.find(u => u._id === fixedMsg.sender);
+          if (found) fixedMsg.sender = found;
+        }
+        if (!fixedMsg.sender) {
+          fixedMsg.sender = currentUser;
+        }
+        if (!fixedMsg.createdAt) {
+          fixedMsg.createdAt = new Date().toISOString();
+        }
+        setMessages(prev => [...prev, fixedMsg]);
       });
       socketService.on('systemMessage', (data) => {
         setMessages(prev => [...prev, { system: true, message: data.message }]);
@@ -29,6 +42,8 @@ const ChatRoom = ({ chatRoom, currentUser, onBack }) => {
       });
       // Join room
       socketService.joinRoom(chatRoom._id, currentUser._id);
+      // Lấy lịch sử chat khi vào phòng
+      initializeChat();
     }
     return () => {
       socketService.removeListener('receiveMessage');
@@ -56,7 +71,7 @@ const ChatRoom = ({ chatRoom, currentUser, onBack }) => {
       // Kết nối socket và join room
       socketService.connect();
       socketService.setCurrentUser(currentUser._id);
-    } catch (e) {
+    } catch {
       setError('Không thể kết nối đến phòng chat');
     } finally {
       setLoading(false);
@@ -87,18 +102,35 @@ const ChatRoom = ({ chatRoom, currentUser, onBack }) => {
         </div>
       </div>
       <div className="messages-container">
-        {messages.map((msg, idx) => (
-          <div key={idx} className={msg.system ? 'system-message' : (msg.sender === currentUser._id || msg.senderId === currentUser._id ? 'message own' : 'message other')}>
+        {loading ? (
+          <div className="chat-room-loading">Đang tải lịch sử chat...</div>
+        ) : messages.length === 0 ? (
+          <div className="no-messages">Chưa có tin nhắn nào.</div>
+        ) : (
+          messages.map((msg, idx) => (
+            // Ẩn system message chứa 'đã tham gia phòng' hoặc 'đã rời phòng'
+            (msg.system && (msg.message?.includes('đã tham gia phòng') || msg.message?.includes('đã rời phòng'))) ? null : (
+              <div key={idx} className={msg.system ? 'system-message' : (msg.sender?._id === currentUser._id ? 'message own' : 'message other')}>
             {msg.system ? (
               <em>{msg.message}</em>
             ) : (
               <>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}>
+                      {msg.sender?.avatar && msg.sender.avatar !== 'false' ? (
+                        <img src={msg.sender.avatar} alt="avatar" style={{width:32,height:32,borderRadius:'50%',objectFit:'cover'}} />
+                      ) : (
+                        <MdPerson size={32} color="#A9745B" style={{ background: '#f8f6f3', borderRadius: '50%' }} />
+                      )}
+                      <span className="message-sender">{msg.sender?.name || 'Ẩn danh'}</span>
+                    </div>
                 <div className="message-content">{msg.message}</div>
-                <div className="message-time">{msg.sender || msg.senderId}</div>
+                    <div className="message-time">{new Date(msg.createdAt).toLocaleString('vi-VN')}</div>
               </>
             )}
           </div>
-        ))}
+            )
+          ))
+        )}
         <div ref={messagesEndRef} />
       </div>
       <form className="message-input-container" onSubmit={handleSendMessage}>

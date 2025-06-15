@@ -1,0 +1,130 @@
+.dashboard-all-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f6f3 0%, #e9ded6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s;
+}
+
+.dashboard-all-container {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(139, 94, 60, 0.13);
+  padding: 2.5rem 3rem;
+  min-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 0.8s;
+}
+
+.dashboard-all-container h1 {
+  color: #6B3F25;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+}
+.dashboard-all-container p {
+  color: #8B5E3C;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.dashboard-all-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #f8f6f3;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(139, 94, 60, 0.08);
+  padding: 1.2rem 2.2rem;
+  font-size: 1.15rem;
+  color: #6B3F25;
+  min-width: 140px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.dashboard-all-flex {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+  margin: 2rem 0;
+}
+
+.review-list-container {
+  max-height: 340px;
+  min-width: 260px;
+  overflow-y: auto;
+  background: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 16px;
+  box-shadow: none;
+  position: relative;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.review-list-container::before,
+.review-list-container::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 40px;
+  z-index: 2;
+  pointer-events: none;
+}
+.review-list-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, #fff 80%, transparent);
+}
+.review-list-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, #fff 80%, transparent);
+}
+
+.review-item {
+  background: #f8f6f3;
+  border-radius: 12px;
+  padding: 0.7rem 1.5rem;
+  color: #6B3F25;
+  font-size: 1.08rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(139, 94, 60, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 220px;
+  word-break: break-word;
+}
+
+.review-content {
+  margin-right: 0.7rem;
+}
+
+.review-rating {
+  color: #A9745B;
+  font-size: 1.1rem;
+  font-weight: bold;
+} 

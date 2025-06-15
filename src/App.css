@@ -49,7 +49,7 @@ section {
   to { opacity: 1; transform: none; }
 }
 
-button, .primary-btn, .secondary-btn, .submit-btn, .login-btn {
+.primary-btn, .secondary-btn, .submit-btn, .login-btn {
   font-family: 'Montserrat', Arial, sans-serif;
   font-weight: 700;
   border: none;

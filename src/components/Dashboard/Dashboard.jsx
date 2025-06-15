@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Chat from '../Chat/Chat';
 import './Dashboard.css';
 
-const Dashboard = () => {
+const DashboardAccount = () => {
   const [cafeData, setCafeData] = useState(null);
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -801,4 +801,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default DashboardAccount; 

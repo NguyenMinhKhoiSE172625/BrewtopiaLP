@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import chatService from '../../services/chatService';
 import './UsersList.css';
+import { MdPerson } from 'react-icons/md';
 
 const UsersList = ({ onUserSelect, currentUserId }) => {
   const [users, setUsers] = useState([]);
@@ -94,12 +95,10 @@ const UsersList = ({ onUserSelect, currentUserId }) => {
               onClick={() => handleUserClick(user)}
             >
               <div className="user-avatar">
-                {user.avatar ? (
+                {user.avatar && user.avatar !== 'false' ? (
                   <img src={user.avatar} alt={user.name} />
                 ) : (
-                  <div className="avatar-placeholder">
-                    {user.name?.charAt(0)?.toUpperCase() || '👤'}
-                  </div>
+                  <MdPerson size={45} color="#A9745B" style={{ background: '#f8f6f3', borderRadius: '50%' }} />
                 )}
                 <div className="online-indicator"></div>
               </div>

@@ -68,6 +68,9 @@ const Header = () => {
             <motion.li whileHover={{ y: -2 }}>
               <a href="#contact" onClick={e => scrollToSection(e, 'contact')}>Liên hệ</a>
             </motion.li>
+            <motion.li whileHover={{ y: -2 }}>
+              <a href="/dashboard-all" onClick={e => { e.preventDefault(); navigate('/dashboard-all'); }}>Tổng Quan</a>
+            </motion.li>
           </ul>
         </nav>
 
