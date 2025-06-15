@@ -1,8 +1,29 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './DashboardAll.css';
-import { Pie } from 'react-chartjs-2';
-import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
-Chart.register(ArcElement, Tooltip, Legend);
+import { Pie, Bar } from 'react-chartjs-2';
+import { Chart, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+Chart.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+
+const palette = {
+  bg: '#F6EEE9',
+  card: '#FFF',
+  accent: '#C7A17A',
+  brown: '#8B5E3C',
+  brownDark: '#6B3F25',
+  brownLight: '#E9DED6',
+  border: '#E5D3C0',
+  text: '#3E2723',
+  statBg: '#F8F6F3',
+};
+
+const icons = [
+  '📅', // Sự kiện
+  '📝', // Bài viết
+  '👥', // Tổng user
+  '🛡️', // Admin
+  '🙋', // User thường
+  '⭐', // Tổng review
+];
 
 const DashboardAll = () => {
   const [events, setEvents] = useState([]);
@@ -10,9 +31,6 @@ const DashboardAll = () => {
   const [users, setUsers] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const reviewContainerRef = useRef(null);
-  const [offset, setOffset] = useState(0);
-  const reviewListRef = useRef(null);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -35,30 +53,6 @@ const DashboardAll = () => {
     fetchAll();
   }, []);
 
-  // Lặp lại mảng review nhiều lần để đủ dài cho hiệu ứng mượt
-  const repeatCount = 50;
-  const reviewsLoop = Array.from({length: repeatCount}).flatMap(() => reviews);
-
-  useEffect(() => {
-    if (!reviews.length) return;
-    const list = reviewListRef.current;
-    if (!list) return;
-    let frame;
-    let speed = 0.5;
-    function step() {
-      setOffset(prev => {
-        const listHeight = list.scrollHeight;
-        const halfHeight = listHeight / 2;
-        let next = prev + speed;
-        if (next >= halfHeight) next = 0;
-        return next;
-      });
-      frame = requestAnimationFrame(step);
-    }
-    frame = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(frame);
-  }, [reviewsLoop]);
-
   // Xử lý tổng số bài viết
   let totalPosts = 0;
   if (posts && typeof posts.total === 'number') {
@@ -72,16 +66,40 @@ const DashboardAll = () => {
   const adminCount = users.filter(u => u.role === 'admin').length;
   const userCount = users.filter(u => u.role !== 'admin').length;
 
+  // Pie chart cho tỷ lệ user/admin
   const pieData = {
     labels: ['Admin', 'User'],
     datasets: [
       {
         data: [adminCount, userCount],
-        backgroundColor: ['#A9745B', '#8B5E3C'],
+        backgroundColor: [palette.accent, palette.brown],
         borderWidth: 1,
       },
     ],
   };
+
+  // Bar chart: Số lượng sự kiện, bài viết, review
+  const barData = {
+    labels: ['Sự kiện', 'Bài viết', 'Review'],
+    datasets: [
+      {
+        label: 'Số lượng',
+        data: [events.length, totalPosts, reviews.length],
+        backgroundColor: [palette.accent, palette.brown, palette.brownDark],
+        borderRadius: 8,
+      },
+    ],
+  };
+
+  // Card tổng quan
+  const statCards = [
+    { label: 'Sự kiện', value: events.length, icon: icons[0] },
+    { label: 'Bài viết', value: totalPosts, icon: icons[1] },
+    { label: 'Tổng user', value: users.length, icon: icons[2] },
+    { label: 'Admin', value: adminCount, icon: icons[3] },
+    { label: 'User thường', value: userCount, icon: icons[4] },
+    { label: 'Tổng review', value: reviews.length, icon: icons[5] },
+  ];
 
   return (
     <div className="dashboard-all-bg">
@@ -89,28 +107,45 @@ const DashboardAll = () => {
         <h1>Dashboard tổng hợp Brewtopia</h1>
         {loading ? <p>Đang tải dữ liệu...</p> : (
           <>
-            <div className="dashboard-all-stats">
-              <div className="stat-card"><b>Sự kiện:</b> {events.length}</div>
-              <div className="stat-card"><b>Bài viết:</b> {totalPosts}</div>
-              <div className="stat-card"><b>Tổng user:</b> {users.length}</div>
-              <div className="stat-card"><b>Admin:</b> {adminCount}</div>
-              <div className="stat-card"><b>User thường:</b> {userCount}</div>
-              <div className="stat-card"><b>Tổng review:</b> {reviews.length}</div>
+            {/* Các card tổng quan */}
+            <div className="dashboard-cards">
+              {statCards.map(card => (
+                <div className="dashboard-card" key={card.label}>
+                  <span className="dashboard-card-icon">{card.icon}</span>
+                  <div>
+                    <div className="dashboard-card-title">{card.label}</div>
+                    <div className="dashboard-card-value">{card.value}</div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="dashboard-all-flex">
-              <div style={{width: 320}}>
+            {/* Khu vực biểu đồ */}
+            <div className="dashboard-charts">
+              <div className="dashboard-chart">
+                <div className="dashboard-chart-title">Tỷ lệ Admin/User</div>
                 <Pie data={pieData} />
               </div>
-              <div className="review-list-container" ref={reviewContainerRef}>
-                <div style={{fontWeight:600, marginBottom:8}}>Tổng review: {reviews.length}</div>
-                <div className="review-list" ref={reviewListRef} style={{ transform: `translateY(-${offset}px)` }}>
-                  {reviewsLoop.map((r, idx) => (
-                    <div className="review-item" key={r._id + '-' + idx}>
-                      <span className="review-content">"{r.content}"</span>
-                      <span className="review-rating">⭐{r.rating}</span>
+              <div className="dashboard-chart">
+                <div className="dashboard-chart-title">Số lượng sự kiện, bài viết, review</div>
+                <Bar data={barData} options={{
+                  plugins: { legend: { display: false } },
+                  scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                }} />
+              </div>
+            </div>
+            {/* Danh sách review */}
+            <div className="dashboard-reviews">
+              <div className="dashboard-reviews-title">Review mới nhất</div>
+              <div className="dashboard-reviews-list">
+                {reviews.slice(0, 5).map((r, idx) => (
+                  <div className="dashboard-review-item" key={r._id || idx}>
+                    <span className="dashboard-review-avatar">☕</span>
+                    <div className="dashboard-review-content">
+                      <div className="dashboard-review-text">"{r.content}"</div>
+                      <div className="dashboard-review-rating">⭐ {r.rating}</div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </>
