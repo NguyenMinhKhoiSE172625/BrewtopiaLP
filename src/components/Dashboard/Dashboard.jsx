@@ -384,8 +384,8 @@ const DashboardAccount = () => {
 
   if (loading) {
     return (
-      <div className="dashboard-bg">
-        <div className="dashboard-container">
+      <div className="dashboard-account-bg">
+        <div className="dashboard-account-container">
           <h2>Đang tải dữ liệu...</h2>
         </div>
       </div>
@@ -394,8 +394,8 @@ const DashboardAccount = () => {
 
   if (error) {
     return (
-      <div className="dashboard-bg">
-        <div className="dashboard-container">
+      <div className="dashboard-account-bg">
+        <div className="dashboard-account-container">
           <h2>Đã xảy ra lỗi</h2>
           <p>{error}</p>
         </div>
@@ -404,13 +404,13 @@ const DashboardAccount = () => {
   }
 
   return (
-    <div className="dashboard-bg">
-      <div className="dashboard-container">
+    <div className="dashboard-account-bg">
+      <div className="dashboard-account-container">
         <h1>Chào mừng, {cafeData?.shopName || 'Chủ quán'}!</h1>
         <p>Đây là dashboard quản lý quán cafe của bạn.</p>
         
         {cafeData && (
-          <div className="dashboard-card">
+          <div className="dashboard-account-card">
             <div className="card-header">
               <h2>Thông tin quán cafe</h2>
               <button className="edit-btn" onClick={handleEditClick}>
@@ -428,7 +428,7 @@ const DashboardAccount = () => {
         
         {/* Menu section - hiển thị luôn nếu có cafeData */}
         {cafeData && (
-          <div className="dashboard-card menu-card">
+          <div className="dashboard-account-card menu-card">
             <div className="card-header">
               <h2>Menu của quán</h2>
               <button className="add-item-btn" onClick={handleAddItemClick}>
@@ -457,7 +457,7 @@ const DashboardAccount = () => {
         )}
 
         {/* Posts section */}
-        <div className="dashboard-card posts-card">
+        <div className="dashboard-account-card posts-card">
           <div className="card-header">
             <h2>Bài viết gần đây</h2>
           </div>
@@ -516,7 +516,7 @@ const DashboardAccount = () => {
         </div>
 
         {/* Events section */}
-        <div className="dashboard-card events-card">
+        <div className="dashboard-account-card events-card">
           <div className="card-header">
             <h2>Sự kiện của quán</h2>
           </div>
@@ -582,7 +582,7 @@ const DashboardAccount = () => {
         </div>
 
         {/* Chat section */}
-        <div className="dashboard-card chat-card">
+        <div className="dashboard-account-card chat-card">
           <div className="card-header">
             <h2>💬 Trò chuyện với khách hàng</h2>
           </div>

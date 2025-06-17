@@ -1,0 +1,188 @@
+.app-showcase {
+  padding: 8rem 0;
+  background: linear-gradient(135deg, #f8f6f3 0%, #e9ded6 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.showcase-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.app-showcase h2 {
+  font-size: 3.2rem;
+  color: #6B3F25;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.showcase-subtitle {
+  font-size: 1.3rem;
+  color: #8B5E3C;
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  margin-bottom: 6rem;
+}
+
+.feature-item.zigzag {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  background: rgba(255,255,255,0.92);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(139, 94, 60, 0.08);
+  padding: 2.5rem 2rem;
+  transition: box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-item.zigzag.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-zigzag-img {
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  max-width: 340px;
+}
+
+.feature-zigzag-image {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(139, 94, 60, 0.13);
+  transition: transform 0.3s, box-shadow 0.3s;
+  will-change: transform;
+  background: #fff;
+}
+
+.feature-zigzag-text {
+  flex: 2;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-icon {
+  font-size: 3.2rem;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  color: #A9745B;
+  filter: drop-shadow(0 2px 8px #e9ded6);
+  transition: transform 0.3s;
+}
+
+.feature-zigzag-text h3 {
+  font-size: 1.7rem;
+  color: #6B3F25;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.feature-zigzag-text p {
+  font-size: 1.13rem;
+  color: #8B5E3C;
+  line-height: 1.7;
+}
+
+.feature-item.zigzag:hover {
+  box-shadow: 0 16px 48px rgba(139, 94, 60, 0.18);
+  transform: translateY(-6px) scale(1.02);
+}
+
+.cta-section {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.97);
+  padding: 4rem;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(139, 94, 60, 0.08);
+}
+
+.cta-section h3 {
+  font-size: 2.4rem;
+  color: #6B3F25;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  color: #8B5E3C;
+  margin-bottom: 2rem;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.app-store-btn img,
+.play-store-btn img {
+  height: 48px;
+  width: auto;
+}
+
+@media (max-width: 1024px) {
+  .feature-item.zigzag, .feature-item.zigzag.reverse {
+    flex-direction: column !important;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+  }
+  .feature-zigzag-img {
+    max-width: 90vw;
+    min-width: 120px;
+  }
+  .feature-zigzag-image {
+    max-width: 90vw;
+  }
+  .feature-zigzag-text {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-showcase {
+    padding: 4rem 0;
+  }
+  .app-showcase h2 {
+    font-size: 2.2rem;
+  }
+  .showcase-subtitle {
+    font-size: 1rem;
+  }
+  .feature-zigzag-text h3 {
+    font-size: 1.2rem;
+  }
+  .feature-zigzag-text p {
+    font-size: 0.98rem;
+  }
+  .cta-section {
+    padding: 2rem;
+  }
+  .cta-section h3 {
+    font-size: 1.3rem;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+} 

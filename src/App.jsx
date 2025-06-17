@@ -3,6 +3,8 @@ import './App.css'
 import Header from './components/Header/Header'
 import Hero from './components/Hero/Hero'
 import Features from './components/Features/Features'
+import AppShowcase from './components/AppShowcase/AppShowcase'
+import JoinUsSection from './components/AppShowcase/JoinUsSection'
 import Testimonials from './components/Testimonials/Testimonials'
 import Contact from './components/Contact/Contact'
 import Footer from './components/Footer/Footer'
@@ -98,6 +100,8 @@ function App() {
               <>
                 <Hero />
                 <Features />
+                <AppShowcase />
+                <JoinUsSection />
                 <Testimonials />
                 <Contact />
               </>

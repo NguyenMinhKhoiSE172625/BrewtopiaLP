@@ -1,4 +1,4 @@
-.dashboard-bg {
+.dashboard-account-bg {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8f6f3 0%, #e9ded6 100%);
   display: flex;
@@ -7,7 +7,7 @@
   animation: fadeIn 1s;
 }
 
-.dashboard-container {
+.dashboard-account-container {
   background: #fff;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(139, 94, 60, 0.13);
@@ -19,19 +19,19 @@
   animation: fadeInUp 0.8s;
 }
 
-.dashboard-container h1 {
+.dashboard-account-container h1 {
   color: #6B3F25;
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0.7rem;
 }
-.dashboard-container p {
+.dashboard-account-container p {
   color: #8B5E3C;
   font-size: 1.1rem;
   margin-bottom: 2rem;
 }
 
-.dashboard-card {
+.dashboard-account-card {
   background: #f8f6f3;
   border-radius: 18px;
   box-shadow: 0 4px 16px rgba(139, 94, 60, 0.08);
@@ -39,18 +39,18 @@
   min-width: 320px;
   animation: fadeIn 1.2s;
 }
-.dashboard-card h2 {
+.dashboard-account-card h2 {
   color: #6B3F25;
   font-size: 1.4rem;
   margin-bottom: 1.2rem;
   text-align: center;
 }
-.dashboard-card ul {
+.dashboard-account-card ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.dashboard-card li {
+.dashboard-account-card li {
   color: #6B3F25;
   font-size: 1.08rem;
   margin-bottom: 0.7rem;
@@ -133,7 +133,7 @@
   font-weight: bold;
 }
 
-.dashboard-container {
+.dashboard-account-container {
   max-width: 900px;
   width: 90%;
 }
@@ -733,7 +733,7 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .dashboard-container {
+  .dashboard-account-container {
     padding: 1.5rem 2rem;
     width: 95%;
   }

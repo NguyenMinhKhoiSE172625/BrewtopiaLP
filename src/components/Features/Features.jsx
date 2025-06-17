@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import AnimationWrapper from '../AnimationWrapper/AnimationWrapper';
+import ParallaxWrapper from '../ParallaxWrapper/ParallaxWrapper';
 import './Features.css';
 
 const Features = () => {
@@ -31,38 +32,34 @@ const Features = () => {
     <section className="features" id="features">
       <div className="features-container">
         <AnimationWrapper animation="fadeInUp" delay={0.2}>
-          <h2>Tính Năng Nổi Bật</h2>
-          <p className="features-subtitle">
-            Khám phá những tính năng giúp bạn tìm được quán cafe hoàn hảo
-          </p>
+          <ParallaxWrapper speed={0.1} direction="vertical">
+            <h2>Tính Năng Nổi Bật</h2>
+            <p className="features-subtitle">
+              Khám phá những tính năng giúp bạn tìm được quán cafe hoàn hảo
+            </p>
+          </ParallaxWrapper>
         </AnimationWrapper>
 
         <div className="features-grid">
           {features.map((feature, index) => (
-            <AnimationWrapper
-              key={index}
-              animation="scaleIn"
-              delay={0.4 + index * 0.1}
-            >
-              <motion.div
-                className="feature-card"
-                whileHover={{
-                  scale: 1.05,
-                  y: -10,
-                  boxShadow: "0 20px 40px rgba(139, 94, 60, 0.15)"
-                }}
-                transition={{ duration: 0.3 }}
-              >
+            <AnimationWrapper key={index} animation="fadeInUp" delay={0.2 + index * 0.1}>
+              <ParallaxWrapper speed={0.15} direction="vertical">
                 <motion.div
-                  className="feature-icon"
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.6 }}
+                  className="feature-card"
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  {feature.icon}
+                  <motion.div
+                    className="feature-icon"
+                    whileHover={{ rotate: -10, scale: 1.2 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {feature.icon}
+                  </motion.div>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.description}</p>
                 </motion.div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </motion.div>
+              </ParallaxWrapper>
             </AnimationWrapper>
           ))}
         </div>
