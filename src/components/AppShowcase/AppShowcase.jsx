@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import ParallaxWrapper from '../ParallaxWrapper/ParallaxWrapper';
 import './AppShowcase.css';
+import { FaApple, FaGooglePlay } from 'react-icons/fa';
 
 const AppShowcase = () => {
   const features = [
@@ -110,19 +111,27 @@ const AppShowcase = () => {
             <div className="cta-buttons">
               <motion.a
                 href="#"
-                className="app-store-btn"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="app-store-btn download-btn"
+                whileHover={{ scale: 1.07, y: -2 }}
+                whileTap={{ scale: 0.96 }}
               >
-                <img src="/app-store.png" alt="App Store" />
+                <FaApple size={28} style={{marginRight: 10}} />
+                <div className="download-btn-text">
+                  <span className="download-btn-title">Tải trên</span>
+                  <span className="download-btn-store">App Store</span>
+                </div>
               </motion.a>
               <motion.a
                 href="#"
-                className="play-store-btn"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="play-store-btn download-btn"
+                whileHover={{ scale: 1.07, y: -2 }}
+                whileTap={{ scale: 0.96 }}
               >
-                <img src="/play-store.png" alt="Play Store" />
+                <FaGooglePlay size={26} style={{marginRight: 10}} />
+                <div className="download-btn-text">
+                  <span className="download-btn-title">Tải trên</span>
+                  <span className="download-btn-store">Google Play</span>
+                </div>
               </motion.a>
             </div>
           </motion.div>

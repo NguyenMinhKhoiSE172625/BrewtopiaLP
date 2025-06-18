@@ -92,12 +92,14 @@
   padding: 2rem 2rem;
   min-width: 350px;
   flex: 1 1 350px;
-  max-width: 420px;
+  max-width: none;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1.5px solid #E5D3C0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .dashboard-chart-title {
@@ -292,6 +294,32 @@
   min-width: 280px;
 }
 
+.dashboard-charts-row {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+.dashboard-chart-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.dashboard-chart-pie {
+  flex: 1 1 320px;
+  max-width: none;
+}
+.dashboard-chart-bars {
+  flex: 2 1 600px;
+  gap: 2rem;
+  max-width: none;
+}
+.dashboard-chart-bars .dashboard-chart {
+  width: 100%;
+}
+
 @media (max-width: 1200px) {
   .dashboard-all-container {
     max-width: 98vw;
@@ -309,6 +337,17 @@
     min-width: 90vw;
     max-width: 98vw;
     padding: 1.5rem 0.5rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .dashboard-charts-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .dashboard-chart-pie, .dashboard-chart-bars {
+    max-width: 100%;
+    width: 100%;
   }
 }
 

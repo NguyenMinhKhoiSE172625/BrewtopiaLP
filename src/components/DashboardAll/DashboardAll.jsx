@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './DashboardAll.css';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-Chart.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+Chart.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, ChartDataLabels);
 
 const palette = {
   bg: '#F6EEE9',
@@ -120,6 +121,31 @@ const DashboardAll = () => {
     ],
   };
 
+  // Pie chart cho tỷ lệ loại tài khoản (gộp user + admin)
+  const accStatusPieData = {
+    labels: ['Thường', 'Premium', 'VIP'],
+    datasets: [
+      {
+        data: [
+          users.filter(u => {
+            let s = (u.AccStatus || u.accStatus || 'false').toString().toLowerCase();
+            return s !== 'vip' && s !== 'premium';
+          }).length,
+          users.filter(u => {
+            let s = (u.AccStatus || u.accStatus || 'false').toString().toLowerCase();
+            return s === 'premium';
+          }).length,
+          users.filter(u => {
+            let s = (u.AccStatus || u.accStatus || 'false').toString().toLowerCase();
+            return s === 'vip';
+          }).length,
+        ],
+        backgroundColor: [palette.brownLight, palette.accent, palette.brownDark],
+        borderWidth: 1,
+      },
+    ],
+  };
+
   // Bar chart: Số lượng sự kiện, bài viết, review
   const barData = {
     labels: ['Sự kiện', 'Bài viết', 'Review'],
@@ -152,13 +178,46 @@ const DashboardAll = () => {
     ]
   };
 
+  // Pie chart options: hiển thị %
+  const pieOptions = {
+    plugins: {
+      datalabels: {
+        formatter: (value, context) => {
+          const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+          const percent = total ? (value / total * 100).toFixed(1) : 0;
+          return percent + '%';
+        },
+        color: '#6B3F25',
+        font: { weight: 'bold', size: 16 }
+      },
+      legend: { display: true }
+    }
+  };
+
+  // Bar chart options: hiển thị % trên đầu cột
+  const barOptions = {
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        formatter: (value, context) => {
+          // Tổng của tất cả cột cùng index (nếu nhiều dataset)
+          const total = context.chart.data.datasets.reduce((sum, ds) => sum + (ds.data[context.dataIndex] || 0), 0);
+          const percent = total ? (value / total * 100).toFixed(1) : 0;
+          return percent + '%';
+        },
+        color: '#6B3F25',
+        font: { weight: 'bold', size: 14 }
+      },
+      legend: { display: true }
+    },
+    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+  };
+
   // Card tổng quan
   const statCards = [
     { label: 'Sự kiện', value: events.length, icon: icons[0] },
-    { label: 'Bài viết', value: totalPosts, icon: icons[1] },
     { label: 'Tổng user', value: users.length, icon: icons[2] },
-    { label: 'Admin', value: adminCount, icon: icons[3] },
-    { label: 'User thường', value: userCount, icon: icons[4] },
     { label: 'Tổng review', value: reviews.length, icon: icons[5] },
     { label: 'Tổng doanh thu', value: `${totalRevenue.toLocaleString('vi-VN')}đ`, icon: icons[6] },
   ];
@@ -183,24 +242,26 @@ const DashboardAll = () => {
             </div>
 
             {/* Khu vực biểu đồ */}
-            <div className="dashboard-charts">
-              <div className="dashboard-chart">
-                <div className="dashboard-chart-title">Tỷ lệ Admin/User</div>
-                <Pie data={pieData} />
+            <div className="dashboard-charts-row">
+              <div className="dashboard-chart-col dashboard-chart-pie">
+                <div className="dashboard-chart">
+                  <div className="dashboard-chart-title">Tỷ lệ Admin/User</div>
+                  <Pie data={pieData} options={pieOptions} />
+                </div>
+                <div className="dashboard-chart" style={{ marginTop: '2rem' }}>
+                  <div className="dashboard-chart-title">Tỷ lệ loại tài khoản</div>
+                  <Pie data={accStatusPieData} options={pieOptions} />
+                </div>
               </div>
-              <div className="dashboard-chart">
-                <div className="dashboard-chart-title">Số lượng sự kiện, bài viết, review</div>
-                <Bar data={barData} options={{
-                  plugins: { legend: { display: false } },
-                  scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
-                }} />
-              </div>
-              <div className="dashboard-chart">
-                <div className="dashboard-chart-title">Phân loại tài khoản theo AccStatus</div>
-                <Bar data={accStatusBarData} options={{
-                  plugins: { legend: { display: true } },
-                  scales: { y: { beginAtZero: true, stepSize: 1 } }
-                }} />
+              <div className="dashboard-chart-col dashboard-chart-bars">
+                <div className="dashboard-chart">
+                  <div className="dashboard-chart-title">Số lượng sự kiện, bài viết, review</div>
+                  <Bar data={barData} options={barOptions} />
+                </div>
+                <div className="dashboard-chart" style={{ marginTop: '2rem' }}>
+                  <div className="dashboard-chart-title">Phân loại tài khoản</div>
+                  <Bar data={accStatusBarData} options={barOptions} />
+                </div>
               </div>
             </div>
 

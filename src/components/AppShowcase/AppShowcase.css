@@ -140,6 +140,46 @@
   width: auto;
 }
 
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(139, 94, 60, 0.10);
+  padding: 0.7rem 1.6rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #6B3F25;
+  border: 2px solid #A9745B;
+  transition: box-shadow 0.2s, border 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+  cursor: pointer;
+  min-width: 170px;
+  text-align: left;
+  text-decoration: none;
+}
+.download-btn:hover {
+  background: #A9745B;
+  color: #fff;
+  border-color: #8B5E3C;
+  box-shadow: 0 8px 32px rgba(139, 94, 60, 0.18);
+}
+.download-btn-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.download-btn-title {
+  font-size: 0.95rem;
+  color: #8B5E3C;
+  font-weight: 500;
+}
+.download-btn-store {
+  font-size: 1.18rem;
+  color: inherit;
+  font-weight: 700;
+}
+
 @media (max-width: 1024px) {
   .feature-item.zigzag, .feature-item.zigzag.reverse {
     flex-direction: column !important;

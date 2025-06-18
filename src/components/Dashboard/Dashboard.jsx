@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Chat from '../Chat/Chat';
+import ChatFloatingButton from './ChatFloatingButton';
 import './Dashboard.css';
 
 const DashboardAccount = () => {
@@ -582,17 +583,12 @@ const DashboardAccount = () => {
         </div>
 
         {/* Chat section */}
-        <div className="dashboard-account-card chat-card">
-          <div className="card-header">
-            <h2>💬 Trò chuyện với khách hàng</h2>
-          </div>
-          <Chat />
-        </div>
+        <ChatFloatingButton />
 
         {/* Modal chỉnh sửa thông tin */}
         {showEditModal && (
-          <div className="modal-overlay" onClick={() => setShowEditModal(false)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="dashboard-modal-overlay" onClick={() => setShowEditModal(false)}>
+            <div className="dashboard-modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h2>Chỉnh sửa thông tin quán cafe</h2>
                 <button className="close-btn" onClick={() => setShowEditModal(false)}>
@@ -710,8 +706,8 @@ const DashboardAccount = () => {
 
         {/* Modal thêm menu item */}
         {showAddItemModal && (
-          <div className="modal-overlay" onClick={() => setShowAddItemModal(false)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="dashboard-modal-overlay" onClick={() => setShowAddItemModal(false)}>
+            <div className="dashboard-modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h2>Thêm món mới</h2>
                 <button className="close-btn" onClick={() => setShowAddItemModal(false)}>
