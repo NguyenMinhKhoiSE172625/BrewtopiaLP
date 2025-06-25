@@ -104,6 +104,11 @@ h1, h2, h3, h4, h5, h6 {
   transform-style: preserve-3d;
 }
 
+h1 {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   background: #f3e9e2;

@@ -119,6 +119,15 @@
 
 .testimonial-content {
   text-align: left;
+  max-height: 90px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.testimonial-content::-webkit-scrollbar {
+  display: none;
 }
 
 .testimonial-content p {
@@ -181,5 +190,60 @@
     font-size: 2.5rem;
     width: 50px;
     height: 50px;
+  }
+}
+
+.testimonial-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s;
+}
+.testimonial-modal {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(139, 94, 60, 0.18);
+  padding: 2.2rem 2.5rem 1.5rem 2.5rem;
+  max-width: 420px;
+  width: 95vw;
+  position: relative;
+  animation: fadeIn 0.2s;
+}
+.testimonial-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #A9745B;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.testimonial-modal-close:hover {
+  color: #6B3F25;
+}
+.testimonial-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.testimonial-modal-content {
+  max-height: 320px;
+  overflow-y: auto;
+  color: #6B3F25;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+@media (max-width: 600px) {
+  .testimonial-modal {
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+    max-width: 98vw;
   }
 }

@@ -134,6 +134,16 @@ const AppShowcase = () => {
                 </div>
               </motion.a>
             </div>
+            <motion.a
+              href="/brewtopia-latest.apk"
+              className="apk-download-btn"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              style={{ display: 'block', margin: '2.2rem auto 0 auto', maxWidth: 420 }}
+            >
+              <span role="img" aria-label="apk" style={{fontSize: 28, marginRight: 14}}>📦</span>
+              <span style={{fontWeight: 700, fontSize: '1.18rem'}}>Tải ngay file APK</span>
+            </motion.a>
           </motion.div>
         </ParallaxWrapper>
       </div>

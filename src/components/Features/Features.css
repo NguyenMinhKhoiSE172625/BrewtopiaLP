@@ -41,6 +41,11 @@
   transition: transform 0.25s, box-shadow 0.25s;
   cursor: pointer;
   animation: fadeIn 1.2s;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .feature-card:hover {

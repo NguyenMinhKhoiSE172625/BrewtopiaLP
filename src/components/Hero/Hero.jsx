@@ -17,7 +17,8 @@ const Hero = () => {
                 transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                 style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}
               >
-                Tìm Quán Cafe Hoàn Hảo Cho Bạn
+                <span style={{display: 'block'}}>Tìm Quán Cafe</span>
+                <span style={{display: 'block'}}>Hoàn Hảo Cho Bạn</span>
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 30, z: 0 }}

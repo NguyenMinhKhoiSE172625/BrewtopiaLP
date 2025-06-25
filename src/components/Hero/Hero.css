@@ -16,7 +16,7 @@
   padding-left: 16px;
   padding-right: 16px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr;
   gap: 4rem;
   align-items: center;
   position: relative;
@@ -24,6 +24,7 @@
 
 .hero-content {
   padding-right: 2rem;
+  padding-left: 2.5rem;
   text-align: left;
   animation: fadeIn 1.2s;
   position: relative;
@@ -37,6 +38,8 @@
   margin-bottom: 1.5rem;
   line-height: 1.15;
   letter-spacing: -1px;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .hero-content p {
