@@ -152,7 +152,7 @@ const DashboardAccount = () => {
       setPostsLoading(true);
       setPostsError(null);
 
-      const response = await fetch('http://localhost:4000/api/posts', {
+      const response = await fetch('https://brewtopia-production.up.railway.app/api/posts', {
         credentials: 'include',
       });
 
@@ -182,7 +182,7 @@ const DashboardAccount = () => {
         const userId = userData.user._id;
         
         // Lấy thông tin quán cafe
-        const cafeResponse = await fetch(`http://localhost:4000/api/cafes/${userId}`, {
+        const cafeResponse = await fetch(`https://brewtopia-production.up.railway.app/api/cafes/${userId}`, {
           credentials: 'include',
         });
         
@@ -196,7 +196,7 @@ const DashboardAccount = () => {
         // Nếu có menu, lấy thông tin menu items
         if (cafeData[0]?.menu?.length > 0) {
           const menuId = cafeData[0].menu[0];
-          const menuResponse = await fetch(`http://localhost:4000/api/menu-items/${menuId}`, {
+          const menuResponse = await fetch(`https://brewtopia-production.up.railway.app/api/menu-items/${menuId}`, {
             credentials: 'include',
           });
           
@@ -284,7 +284,7 @@ const DashboardAccount = () => {
     setUpdateMessage('');
 
     try {
-      const response = await fetch(`http://localhost:4000/api/cafes/${cafeData._id}`, {
+      const response = await fetch(`https://brewtopia-production.up.railway.app/api/cafes/${cafeData._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -363,7 +363,7 @@ const DashboardAccount = () => {
         formData.append('image', newItemData.image);
       }
 
-      const response = await fetch(`http://localhost:4000/api/menu-items/create-Item/${menuId}`, {
+      const response = await fetch(`https://brewtopia-production.up.railway.app/api/menu-items/create-Item/${menuId}`, {
         method: 'POST',
         credentials: 'include',
         body: formData

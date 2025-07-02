@@ -42,11 +42,11 @@ const DashboardAll = () => {
     const fetchAll = async () => {
       setLoading(true);
       const [eventRes, postRes, userRes, reviewRes, paymentRes] = await Promise.all([
-        fetch('http://localhost:4000/api/events/'),
-        fetch('http://localhost:4000/api/posts/Allpost'),
-        fetch('http://localhost:4000/api/users'),
-        fetch('http://localhost:4000/api/reviews'),
-        fetch('http://localhost:4000/api/payments/'),
+        fetch('https://brewtopia-production.up.railway.app/api/events/'),
+        fetch('https://brewtopia-production.up.railway.app/api/posts/Allpost'),
+        fetch('https://brewtopia-production.up.railway.app/api/users'),
+        fetch('https://brewtopia-production.up.railway.app/api/reviews'),
+        fetch('https://brewtopia-production.up.railway.app/api/payments/'),
       ]);
       const [eventData, postData, userData, reviewData, paymentData] = await Promise.all([
         eventRes.json(), postRes.json(), userRes.json(), reviewRes.json(), paymentRes.json()

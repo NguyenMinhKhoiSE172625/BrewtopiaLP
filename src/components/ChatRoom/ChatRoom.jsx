@@ -60,7 +60,7 @@ const ChatRoom = ({ chatRoom, currentUser, onBack }) => {
       const token = localStorage.getItem('token') || (JSON.parse(localStorage.getItem('userData'))?.token);
       let history = [];
       if (token) {
-        const res = await fetch(`http://localhost:4000/api/chat/message/${chatRoom._id}`, {
+        const res = await fetch(`https://brewtopia-production.up.railway.app/api/chat/message/${chatRoom._id}`, {
           headers: { Authorization: 'Bearer ' + token }
         });
         if (res.ok) {

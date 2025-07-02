@@ -8,7 +8,7 @@ class SocketService {
     this.currentUserId = null;
   }
 
-  connect(serverUrl = 'http://localhost:4000') {
+  connect(serverUrl = 'https://brewtopia-production.up.railway.app') {
     if (this.socket && this.isConnected) {
       return this.socket;
     }
