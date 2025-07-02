@@ -3,6 +3,7 @@ import './DashboardAll.css';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import apiService from '../../services/apiService';
 Chart.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, ChartDataLabels);
 
 const palette = {
@@ -40,23 +41,27 @@ const DashboardAll = () => {
 
   useEffect(() => {
     const fetchAll = async () => {
-      setLoading(true);
-      const [eventRes, postRes, userRes, reviewRes, paymentRes] = await Promise.all([
-        fetch('https://brewtopia-production.up.railway.app/api/events/'),
-        fetch('https://brewtopia-production.up.railway.app/api/posts/Allpost'),
-        fetch('https://brewtopia-production.up.railway.app/api/users'),
-        fetch('https://brewtopia-production.up.railway.app/api/reviews'),
-        fetch('https://brewtopia-production.up.railway.app/api/payments/'),
-      ]);
-      const [eventData, postData, userData, reviewData, paymentData] = await Promise.all([
-        eventRes.json(), postRes.json(), userRes.json(), reviewRes.json(), paymentRes.json()
-      ]);
-      setEvents(eventData);
-      setPosts(postData);
-      setUsers(userData);
-      setReviews(Array.isArray(reviewData) ? reviewData : (reviewData.reviews || []));
-      setPayments(paymentData.data || []);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const {
+          events: eventData,
+          posts: postData,
+          users: userData,
+          reviews: reviewData,
+          payments: paymentData
+        } = await apiService.getDashboardData();
+
+        setEvents(eventData);
+        setPosts(postData);
+        setUsers(userData);
+        setReviews(Array.isArray(reviewData) ? reviewData : (reviewData.reviews || []));
+        setPayments(paymentData.data || []);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        // Có thể thêm error state nếu cần
+      } finally {
+        setLoading(false);
+      }
     };
     fetchAll();
   }, []);

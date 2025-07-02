@@ -16,7 +16,7 @@ import FloatingElements from './components/FloatingElements/FloatingElements'
 import FloatingShapes from './components/FloatingShapes/FloatingShapes'
 import FloatingParticles from './components/FloatingParticles/FloatingParticles'
 import FloatingSteam from './components/FloatingSteam/FloatingSteam'
-import ChatFloatingButton from './components/Dashboard/ChatFloatingButton'
+
 
 import SmoothScroll from './components/SmoothScroll/SmoothScroll'
 import LoadingAnimation from './components/LoadingAnimation/LoadingAnimation'
@@ -115,7 +115,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </main>
-        {(!isDashboard && !isDashboardLogin && !isResetPassword) && <ChatFloatingButton />}
+
         {(!isDashboard && !isDashboardLogin && !isResetPassword) || isDashboardAll ? <Footer /> : null}
       </div>
     </SmoothScroll>

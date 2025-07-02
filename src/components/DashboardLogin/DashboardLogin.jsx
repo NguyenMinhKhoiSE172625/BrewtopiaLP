@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './DashboardLogin.css';
 import { useNavigate } from 'react-router-dom';
+import apiService from '../../services/apiService';
 
 const DashboardLogin = () => {
   const [email, setEmail] = useState('');
@@ -11,35 +12,23 @@ const DashboardLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://brewtopia-production.up.railway.app/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          email,
-          password,
-          role: 'admin'
-        })
+      setError('');
+      const data = await apiService.login({
+        email,
+        password,
+        role: 'admin'
       });
 
-      if (!response.ok) {
-        if (response.status === 0) {
-          throw new Error('Không thể kết nối đến server. Vui lòng kiểm tra lại kết nối mạng hoặc liên hệ admin.');
-        }
-        const data = await response.json();
-        throw new Error(data.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
-      }
-
-      const data = await response.json();
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userData', JSON.stringify(data));
       navigate('/dashboard');
     } catch (error) {
       console.error('Login error:', error);
-      setError(error.message || 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+      if (error.message.includes('fetch')) {
+        setError('Không thể kết nối đến server. Vui lòng kiểm tra lại kết nối mạng hoặc liên hệ admin.');
+      } else {
+        setError(error.message || 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+      }
     }
   };
 

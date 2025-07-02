@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Chat from '../Chat/Chat';
 import ChatFloatingButton from './ChatFloatingButton';
 import './Dashboard.css';
+import apiService from '../../services/apiService';
 
 const DashboardAccount = () => {
   const [cafeData, setCafeData] = useState(null);
@@ -152,15 +153,7 @@ const DashboardAccount = () => {
       setPostsLoading(true);
       setPostsError(null);
 
-      const response = await fetch('https://brewtopia-production.up.railway.app/api/posts', {
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Không thể lấy danh sách bài viết');
-      }
-
-      const postsData = await response.json();
+      const postsData = await apiService.getPosts();
       setPosts(postsData.posts || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -182,29 +175,13 @@ const DashboardAccount = () => {
         const userId = userData.user._id;
         
         // Lấy thông tin quán cafe
-        const cafeResponse = await fetch(`https://brewtopia-production.up.railway.app/api/cafes/${userId}`, {
-          credentials: 'include',
-        });
-        
-        if (!cafeResponse.ok) {
-          throw new Error('Không thể lấy thông tin quán cafe');
-        }
-        
-        const cafeData = await cafeResponse.json();
+        const cafeData = await apiService.getCafeByUserId(userId);
         setCafeData(cafeData[0]); // Lấy phần tử đầu tiên từ mảng
         
         // Nếu có menu, lấy thông tin menu items
         if (cafeData[0]?.menu?.length > 0) {
           const menuId = cafeData[0].menu[0];
-          const menuResponse = await fetch(`https://brewtopia-production.up.railway.app/api/menu-items/${menuId}`, {
-            credentials: 'include',
-          });
-          
-          if (!menuResponse.ok) {
-            throw new Error('Không thể lấy thông tin menu');
-          }
-          
-          const menuData = await menuResponse.json();
+          const menuData = await apiService.getMenuItems(menuId);
           setMenuItems(menuData);
         }
 
@@ -284,20 +261,7 @@ const DashboardAccount = () => {
     setUpdateMessage('');
 
     try {
-      const response = await fetch(`https://brewtopia-production.up.railway.app/api/cafes/${cafeData._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(editFormData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Không thể cập nhật thông tin quán cafe');
-      }
-
-      const result = await response.json();
+      const result = await apiService.updateCafe(cafeData._id, editFormData);
       setCafeData(result.cafe);
       setUpdateMessage('Cập nhật thông tin thành công!');
 
@@ -363,17 +327,7 @@ const DashboardAccount = () => {
         formData.append('image', newItemData.image);
       }
 
-      const response = await fetch(`https://brewtopia-production.up.railway.app/api/menu-items/create-Item/${menuId}`, {
-        method: 'POST',
-        credentials: 'include',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error('Không thể thêm menu item');
-      }
-
-      const result = await response.json();
+      const result = await apiService.createMenuItem(menuId, formData);
 
       // Cập nhật danh sách menu items
       setMenuItems(prev => [...prev, result]);

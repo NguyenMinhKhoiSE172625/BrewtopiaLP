@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client';
+import { API_CONFIG } from './apiService';
 
 class SocketService {
   constructor() {
@@ -8,7 +9,7 @@ class SocketService {
     this.currentUserId = null;
   }
 
-  connect(serverUrl = 'https://brewtopia-production.up.railway.app') {
+  connect(serverUrl = API_CONFIG.SOCKET_URL) {
     if (this.socket && this.isConnected) {
       return this.socket;
     }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ResetPassword.css';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import apiService from '../../services/apiService';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -49,25 +50,11 @@ const ResetPassword = () => {
 
     try {
       setLoading(true);
-      const response = await fetch('https://brewtopia-production.up.railway.app/api/auth/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          token,
-          email,
-          newPassword: password
-        })
+      await apiService.resetPassword({
+        token,
+        email,
+        newPassword: password
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Đặt lại mật khẩu thất bại. Vui lòng thử lại.');
-      }
 
       setSuccess('Đặt lại mật khẩu thành công! Đang chuyển hướng...');
       

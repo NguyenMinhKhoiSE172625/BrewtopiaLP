@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import socketService from '../../services/socketService';
+import apiService from '../../services/apiService';
 import './ChatRoom.css';
 import { MdPerson } from 'react-icons/md';
 
@@ -57,15 +58,13 @@ const ChatRoom = ({ chatRoom, currentUser, onBack }) => {
       setLoading(true);
       setError(null);
       // Lấy lịch sử chat qua API
-      const token = localStorage.getItem('token') || (JSON.parse(localStorage.getItem('userData'))?.token);
       let history = [];
-      if (token) {
-        const res = await fetch(`https://brewtopia-production.up.railway.app/api/chat/message/${chatRoom._id}`, {
-          headers: { Authorization: 'Bearer ' + token }
-        });
-        if (res.ok) {
-          history = await res.json();
-        }
+      try {
+        const result = await apiService.getChatMessages(chatRoom._id);
+        history = result.messages || [];
+      } catch (error) {
+        console.warn('Không thể lấy lịch sử chat:', error);
+        history = [];
       }
       setMessages(history);
       // Kết nối socket và join room
