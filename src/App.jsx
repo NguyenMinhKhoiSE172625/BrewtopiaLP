@@ -11,6 +11,7 @@ import Footer from './components/Footer/Footer'
 import DashboardLogin from './components/DashboardLogin/DashboardLogin'
 import DashboardAccount from './components/Dashboard/Dashboard'
 import DashboardAll from './components/DashboardAll/DashboardAll'
+import ResetPassword from './components/ResetPassword/ResetPassword'
 import FloatingElements from './components/FloatingElements/FloatingElements'
 import FloatingShapes from './components/FloatingShapes/FloatingShapes'
 import FloatingParticles from './components/FloatingParticles/FloatingParticles'
@@ -28,6 +29,7 @@ function App() {
   const isDashboard = location.pathname === '/dashboard';
   const isDashboardLogin = location.pathname === '/dashboard-login';
   const isDashboardAll = location.pathname === '/dashboard-all';
+  const isResetPassword = location.pathname === '/reset-password';
   const [isLoading, setIsLoading] = useState(true);
 
   // Giả lập trạng thái đăng nhập (có thể dùng localStorage hoặc context thực tế)
@@ -48,8 +50,8 @@ function App() {
 
   return (
     <SmoothScroll>
-      <div className={`app${!isDashboard && !isDashboardLogin ? ' has-header' : ''}`}>
-        {(!isDashboard && !isDashboardLogin) && (
+      <div className={`app${!isDashboard && !isDashboardLogin && !isResetPassword ? ' has-header' : ''}`}>
+        {(!isDashboard && !isDashboardLogin && !isResetPassword) && (
           <>
             <FloatingSteam />
             <FloatingParticles />
@@ -57,7 +59,7 @@ function App() {
             <FloatingElements />
           </>
         )}
-        {(!isDashboard && !isDashboardLogin) || isDashboardAll ? <Header /> : null}
+        {(!isDashboard && !isDashboardLogin && !isResetPassword) || isDashboardAll ? <Header /> : null}
         {isDashboard && (
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.2rem 2rem 0.5rem 2rem'}}>
             <button
@@ -110,10 +112,11 @@ function App() {
             <Route path="/dashboard-login" element={<DashboardLogin />} />
             <Route path="/dashboard" element={<DashboardAccount />} />
             <Route path="/dashboard-all" element={<DashboardAll />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </main>
-        {(!isDashboard && !isDashboardLogin) && <ChatFloatingButton />}
-        {(!isDashboard && !isDashboardLogin) || isDashboardAll ? <Footer /> : null}
+        {(!isDashboard && !isDashboardLogin && !isResetPassword) && <ChatFloatingButton />}
+        {(!isDashboard && !isDashboardLogin && !isResetPassword) || isDashboardAll ? <Footer /> : null}
       </div>
     </SmoothScroll>
   )

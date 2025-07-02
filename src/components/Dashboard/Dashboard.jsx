@@ -225,9 +225,17 @@ const DashboardAccount = () => {
   // Hàm mở modal chỉnh sửa
   const handleEditClick = () => {
     if (cafeData) {
+      // Xử lý address object
+      let addressString = '';
+      if (typeof cafeData.address === 'object' && cafeData.address) {
+        addressString = `${cafeData.address.street || ''}, ${cafeData.address.ward || ''}, ${cafeData.address.district || ''}, ${cafeData.address.city || ''}`;
+      } else {
+        addressString = cafeData.address || '';
+      }
+
       setEditFormData({
         shopName: cafeData.shopName || '',
-        address: cafeData.address || '',
+        address: addressString,
         email: cafeData.email || '',
         phoneNumber: cafeData.phoneNumber || '',
         description: cafeData.description || '',
@@ -419,7 +427,11 @@ const DashboardAccount = () => {
               </button>
             </div>
             <ul>
-              <li><b>Địa chỉ:</b> {cafeData.address || 'Chưa cập nhật'}</li>
+              <li><b>Địa chỉ:</b> {
+                typeof cafeData.address === 'object' 
+                  ? `${cafeData.address.street || ''}, ${cafeData.address.ward || ''}, ${cafeData.address.district || ''}, ${cafeData.address.city || ''}`
+                  : (cafeData.address || 'Chưa cập nhật')
+              }</li>
               <li><b>Email:</b> {cafeData.email || 'Chưa cập nhật'}</li>
               <li><b>Số điện thoại:</b> {cafeData.phoneNumber || 'Chưa cập nhật'}</li>
               <li><b>Mô tả:</b> {cafeData.description || 'Chưa cập nhật'}</li>

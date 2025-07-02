@@ -145,6 +145,34 @@
   }
 }
 
+@media (max-width: 480px) {
+  .header-container {
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.5rem 0.2rem;
+  }
+  .logo img {
+    height: 32px;
+  }
+  .nav-menu ul {
+    flex-direction: column;
+    gap: 0.3rem;
+    height: auto;
+    padding: 0.2rem 0;
+  }
+  .header .nav-menu a {
+    font-size: 0.98rem !important;
+    line-height: 1.7;
+    padding: 0.2rem 0.5rem !important;
+    height: auto;
+  }
+  .login-btn {
+    font-size: 0.95rem !important;
+    padding: 0.2rem 1.1rem !important;
+    margin-left: 0.5rem;
+  }
+}
+
 .profile-dropdown-wrapper {
   position: relative;
   display: inline-block;
