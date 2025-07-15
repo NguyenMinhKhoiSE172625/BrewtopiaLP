@@ -262,3 +262,45 @@
     align-items: center;
   }
 } 
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.toast.toast-success {
+  background: #4CAF50;
+}
+
+.toast.toast-error {
+  background: #f44336;
+}
+
+.toast.toast-info {
+  background: #2196F3;
+} 

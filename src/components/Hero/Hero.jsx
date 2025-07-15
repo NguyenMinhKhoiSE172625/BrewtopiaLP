@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import AnimationWrapper from '../AnimationWrapper/AnimationWrapper';
 import ParallaxWrapper from '../ParallaxWrapper/ParallaxWrapper';
 import './Hero.css';
+import { downloadAPK } from '../../services/downloadService';
 
 const Hero = () => {
   return (
@@ -47,8 +48,8 @@ const Hero = () => {
                 >
                   Khám phá ngay
                 </motion.a>
-                <motion.a
-                  href="#download"
+                <motion.button
+                  onClick={downloadAPK}
                   className="secondary-btn"
                   whileHover={{ scale: 1.05, y: -2, z: 0 }}
                   whileTap={{ scale: 0.95, z: 0 }}
@@ -56,7 +57,7 @@ const Hero = () => {
                   style={{ willChange: 'transform' }}
                 >
                   Tải ứng dụng
-                </motion.a>
+                </motion.button>
               </motion.div>
             </div>
           </ParallaxWrapper>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import ParallaxWrapper from '../ParallaxWrapper/ParallaxWrapper';
 import './AppShowcase.css';
 import { FaApple, FaGooglePlay } from 'react-icons/fa';
+import { downloadAPK } from '../../services/downloadService';
 
 const AppShowcase = () => {
   const features = [
@@ -134,8 +135,8 @@ const AppShowcase = () => {
                 </div>
               </motion.a>
             </div>
-            <motion.a
-              href="/brewtopia-latest.apk"
+            <motion.button
+              onClick={downloadAPK}
               className="apk-download-btn"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
@@ -143,7 +144,7 @@ const AppShowcase = () => {
             >
               <span role="img" aria-label="apk" style={{fontSize: 28, marginRight: 14}}>📦</span>
               <span style={{fontWeight: 700, fontSize: '1.18rem'}}>Tải ngay file APK</span>
-            </motion.a>
+            </motion.button>
           </motion.div>
         </ParallaxWrapper>
       </div>
