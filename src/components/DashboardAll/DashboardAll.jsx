@@ -3,7 +3,7 @@ import './DashboardAll.css';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import apiService from '../../services/apiService';
+// import apiService from '../../services/apiService'; // Bỏ gọi API
 Chart.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, ChartDataLabels);
 
 const palette = {
@@ -28,53 +28,58 @@ const icons = [
   '💰', // Tổng doanh thu
 ];
 
+const MOCK_EVENTS = Array.from({ length: 8 }, (_, i) => ({ _id: i+1, name: `Sự kiện ${i+1}` }));
+const MOCK_POSTS = Array.from({ length: 12 }, (_, i) => ({ _id: i+1, title: `Bài viết ${i+1}` }));
+const MOCK_USERS = [
+  ...Array.from({ length: 3 }, (_, i) => ({ _id: i+1, name: `Admin ${i+1}`, role: 'admin', AccStatus: i === 2 ? 'vip' : 'premium' })),
+  ...Array.from({ length: 22 }, (_, i) => ({ _id: i+4, name: `User ${i+1}`, role: 'user', AccStatus: i < 3 ? 'vip' : (i < 8 ? 'premium' : 'false') }))
+];
+const MOCK_REVIEWS = Array.from({ length: 13 }, (_, i) => ({
+  _id: i+1,
+  content: `Đây là review số ${i+1}, app rất tuyệt vời!`,
+  rating: 4 + (i % 2)
+}));
+const MOCK_PAYMENTS = [
+  ...Array.from({ length: 21 }, (_, i) => ({
+    _id: i+1,
+    orderCode: `ORD${1000+i}`,
+    amount: 50000 + (i%5)*10000,
+    createdAt: new Date(Date.now() - i*86400000).toISOString(),
+    status: 'PAID',
+    targetModel: i%3 === 0 ? 'UpgradeVIP' : (i%3 === 1 ? 'UpgradePremium' : 'Booking')
+  })),
+  ...Array.from({ length: 4 }, (_, i) => ({
+    _id: 100+i,
+    orderCode: `ORD${2000+i}`,
+    amount: 40000 + i*5000,
+    createdAt: new Date(Date.now() - (i+22)*86400000).toISOString(),
+    status: 'PENDING',
+    targetModel: 'Booking'
+  })),
+  ...Array.from({ length: 2 }, (_, i) => ({
+    _id: 200+i,
+    orderCode: `ORD${3000+i}`,
+    amount: 35000 + i*3000,
+    createdAt: new Date(Date.now() - (i+26)*86400000).toISOString(),
+    status: 'CANCELLED',
+    targetModel: 'Booking'
+  }))
+];
+
 const DashboardAll = () => {
-  const [events, setEvents] = useState([]);
-  const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [reviews, setReviews] = useState([]);
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Sử dụng mock data thay vì gọi API
+  const [events] = useState(MOCK_EVENTS);
+  const [posts] = useState(MOCK_POSTS);
+  const [users] = useState(MOCK_USERS);
+  const [reviews] = useState(MOCK_REVIEWS);
+  const [payments] = useState(MOCK_PAYMENTS);
+  const [loading] = useState(false);
   const [activeTab, setActiveTab] = useState('PAID');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  useEffect(() => {
-    const fetchAll = async () => {
-      try {
-        setLoading(true);
-        const {
-          events: eventData,
-          posts: postData,
-          users: userData,
-          reviews: reviewData,
-          payments: paymentData
-        } = await apiService.getDashboardData();
-
-        setEvents(eventData);
-        setPosts(postData);
-        setUsers(userData);
-        setReviews(Array.isArray(reviewData) ? reviewData : (reviewData.reviews || []));
-        setPayments(paymentData.data || []);
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-        // Có thể thêm error state nếu cần
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAll();
-  }, []);
-
   // Xử lý tổng số bài viết
-  let totalPosts = 0;
-  if (posts && typeof posts.total === 'number') {
-    totalPosts = posts.total;
-  } else if (posts && Array.isArray(posts.posts)) {
-    totalPosts = posts.posts.length;
-  } else if (Array.isArray(posts)) {
-    totalPosts = posts.length;
-  }
+  let totalPosts = posts.length;
 
   const adminCount = users.filter(u => u.role === 'admin').length;
   const userCount = users.filter(u => u.role !== 'admin').length;
@@ -104,7 +109,6 @@ const DashboardAll = () => {
   };
 
   users.forEach(u => {
-    // Lấy acc status, chuyển về chữ thường, chuẩn hóa về 'vip', 'premium', 'false'
     let status = (u.AccStatus || u.accStatus || 'false').toString().toLowerCase();
     if (status !== 'vip' && status !== 'premium') status = 'false';
     if (u.role === 'admin') {
@@ -206,7 +210,6 @@ const DashboardAll = () => {
         anchor: 'end',
         align: 'end',
         formatter: (value, context) => {
-          // Tổng của tất cả cột cùng index (nếu nhiều dataset)
           const total = context.chart.data.datasets.reduce((sum, ds) => sum + (ds.data[context.dataIndex] || 0), 0);
           const percent = total ? (value / total * 100).toFixed(1) : 0;
           return percent + '%';
