@@ -50,8 +50,8 @@ function App() {
 
   return (
     <SmoothScroll>
-      <div className={`app${!isDashboard && !isDashboardLogin && !isResetPassword ? ' has-header' : ''}`}>
-        {(!isDashboard && !isDashboardLogin && !isResetPassword) && (
+      <div className={`app${!isDashboard && !isDashboardLogin && !isResetPassword && !isDashboardAll ? ' has-header' : ''}`}>
+        {(!isDashboard && !isDashboardLogin && !isResetPassword && !isDashboardAll) && (
           <>
             <FloatingSteam />
             <FloatingParticles />
@@ -59,7 +59,7 @@ function App() {
             <FloatingElements />
           </>
         )}
-        {(!isDashboard && !isDashboardLogin && !isResetPassword) || isDashboardAll ? <Header /> : null}
+        {(!isDashboard && !isDashboardLogin && !isResetPassword && !isDashboardAll) ? <Header /> : null}
         {isDashboard && (
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.2rem 2rem 0.5rem 2rem'}}>
             <button
@@ -116,7 +116,7 @@ function App() {
           </Routes>
         </main>
 
-        {(!isDashboard && !isDashboardLogin && !isResetPassword) || isDashboardAll ? <Footer /> : null}
+        {(!isDashboard && !isDashboardLogin && !isResetPassword && !isDashboardAll) ? <Footer /> : null}
       </div>
     </SmoothScroll>
   )

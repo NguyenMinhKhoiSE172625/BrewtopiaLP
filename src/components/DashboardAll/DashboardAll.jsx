@@ -3,6 +3,7 @@ import './DashboardAll.css';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { useNavigate } from 'react-router-dom';
 // import apiService from '../../services/apiService'; // Bỏ gọi API
 Chart.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, ChartDataLabels);
 
@@ -43,7 +44,7 @@ const MOCK_PAYMENTS = [
   ...Array.from({ length: 21 }, (_, i) => ({
     _id: i+1,
     orderCode: `ORD${1000+i}`,
-    amount: 50000 + (i%5)*10000,
+    amount: 2000, // mỗi giao dịch chỉ 2000 VND
     createdAt: new Date(Date.now() - i*86400000).toISOString(),
     status: 'PAID',
     targetModel: i%3 === 0 ? 'UpgradeVIP' : (i%3 === 1 ? 'UpgradePremium' : 'Booking')
@@ -51,7 +52,7 @@ const MOCK_PAYMENTS = [
   ...Array.from({ length: 4 }, (_, i) => ({
     _id: 100+i,
     orderCode: `ORD${2000+i}`,
-    amount: 40000 + i*5000,
+    amount: 2000,
     createdAt: new Date(Date.now() - (i+22)*86400000).toISOString(),
     status: 'PENDING',
     targetModel: 'Booking'
@@ -59,7 +60,7 @@ const MOCK_PAYMENTS = [
   ...Array.from({ length: 2 }, (_, i) => ({
     _id: 200+i,
     orderCode: `ORD${3000+i}`,
-    amount: 35000 + i*3000,
+    amount: 2000,
     createdAt: new Date(Date.now() - (i+26)*86400000).toISOString(),
     status: 'CANCELLED',
     targetModel: 'Booking'
@@ -67,6 +68,8 @@ const MOCK_PAYMENTS = [
 ];
 
 const DashboardAll = () => {
+  const navigate = useNavigate();
+  
   // Sử dụng mock data thay vì gọi API
   const [events] = useState(MOCK_EVENTS);
   const [posts] = useState(MOCK_POSTS);
@@ -230,8 +233,32 @@ const DashboardAll = () => {
     { label: 'Tổng doanh thu', value: `${totalRevenue.toLocaleString('vi-VN')}đ`, icon: icons[6] },
   ];
 
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    navigate('/');
+    window.location.reload();
+  };
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
   return (
     <div className="dashboard-all-bg">
+      <div className="dashboard-simple-header">
+        <button 
+          className="dashboard-home-btn"
+          onClick={() => navigate('/')}
+        >
+          ← Quay về trang chủ
+        </button>
+        {isLoggedIn && (
+          <button 
+            className="dashboard-logout-btn"
+            onClick={handleLogout}
+          >
+            Đăng xuất
+          </button>
+        )}
+      </div>
       <div className="dashboard-all-container">
         <h1>Dashboard tổng hợp Brewtopia</h1>
         {loading ? <p>Đang tải dữ liệu...</p> : (
@@ -363,7 +390,7 @@ const DashboardAll = () => {
               <div className="dashboard-reviews">
                 <div className="dashboard-reviews-title">Review mới nhất</div>
                 <div className="dashboard-reviews-list">
-                  {reviews.slice(0, 5).map((r, idx) => (
+                  {reviews.map((r, idx) => (
                     <div className="dashboard-review-item" key={r._id || idx}>
                       <span className="dashboard-review-avatar">☕</span>
                       <div className="dashboard-review-content">
