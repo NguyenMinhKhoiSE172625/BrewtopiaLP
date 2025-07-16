@@ -5,7 +5,7 @@ export const downloadAPK = () => {
   
   try {
     // Chuyển đổi link Google Drive thành link tải trực tiếp
-    const googleDriveId = "1krKLEQGtO6c7NfvKB7oxfLgeNROM7LSv";
+    const googleDriveId = "1s-uUm9NgIEhXU9E3c5L3FLwsDrHPcaSI";
     const directDownloadLink = `https://drive.google.com/uc?export=download&id=${googleDriveId}`;
     
     // Tạo element link ẩn và trigger download
