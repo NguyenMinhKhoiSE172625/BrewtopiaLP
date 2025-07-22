@@ -36,26 +36,18 @@ const MOCK_USERS = [
   ...Array.from({ length: 22 }, (_, i) => ({ _id: i+4, name: `User ${i+1}`, role: 'user', AccStatus: i < 3 ? 'vip' : (i < 8 ? 'premium' : 'false') }))
 ];
 const MOCK_REVIEWS = [
-  { _id: 1, content: 'Quán rất đẹp, không gian yên tĩnh, mình rất thích!', rating: 5, user: 'Nguyễn Minh Tuấn' },
-  { _id: 2, content: 'Cà phê ngon, nhân viên thân thiện, sẽ quay lại!', rating: 5, user: 'Lê Thị Hồng' },
-  { _id: 3, content: 'Không gian hơi nhỏ nhưng đồ uống ổn.', rating: 4, user: 'Phạm Văn Dũng' },
-  { _id: 4, content: 'Mình thích góc cửa sổ, view đẹp, nhạc chill.', rating: 5, user: 'Trần Quốc Bảo' },
-  { _id: 5, content: 'Đồ uống ra hơi lâu, nhưng bù lại rất ngon.', rating: 4, user: 'Vũ Thị Mai' },
-  { _id: 6, content: 'Quán đông vào cuối tuần, nên đi sớm.', rating: 4, user: 'Đặng Hoàng Nam' },
-  { _id: 7, content: 'Có chỗ để xe rộng rãi, tiện lợi.', rating: 5, user: 'Ngô Thị Lan' },
-  { _id: 8, content: 'Giá hơi cao nhưng chất lượng xứng đáng.', rating: 4, user: 'Bùi Văn Hùng' },
-  { _id: 9, content: 'Wifi mạnh, làm việc cả buổi rất ổn.', rating: 5, user: 'Hoàng Minh Châu' },
-  { _id: 10, content: 'Trang trí đẹp, nhiều góc sống ảo.', rating: 5, user: 'Lý Thanh Sơn' },
-  { _id: 11, content: 'Có nhiều loại bánh ngon, hợp với trà.', rating: 4, user: 'Tạ Thị Hạnh' },
-  { _id: 12, content: 'Nhân viên phục vụ hơi chậm.', rating: 3, user: 'Đỗ Quang Vinh' },
-  { _id: 13, content: 'Rất thích không gian ngoài trời ở đây.', rating: 5, user: 'Nguyễn Thị Ngọc' },
-  { _id: 14, content: 'Menu đa dạng, giá hợp lý.', rating: 5, user: 'Trịnh Văn Phúc' },
-  { _id: 15, content: 'Quán sạch sẽ, mát mẻ, rất hài lòng.', rating: 5, user: 'Phan Thị Thu' },
-  { _id: 16, content: 'Có nhạc sống vào cuối tuần, rất vui.', rating: 4, user: 'Lương Minh Hiếu' },
-  { _id: 17, content: 'Không gian mở, nhiều cây xanh, dễ chịu.', rating: 5, user: 'Nguyễn Hoàng Yến' },
-  { _id: 18, content: 'Đặt bàn online rất tiện lợi.', rating: 5, user: 'Võ Văn Lâm' },
-  { _id: 19, content: 'Quán hơi xa trung tâm nhưng đáng để thử.', rating: 4, user: 'Mai Thị Hòa' },
-  { _id: 20, content: 'Mình thích phong cách trang trí vintage ở đây.', rating: 5, user: 'Chu Đức Anh' },
+  { name: 'Hồ Thảo Vy', role: 'User', avatar: '👩', rating: 5, content: 'Không cần quảng cáo phức tạp, tôi chỉ cần đăng bài đúng lúc – app giúp tôi tiếp cận đúng người.' },
+  { name: 'Trần Thị Bích', role: 'User', avatar: '👩‍🎓', rating: 3, content: 'App hoạt động mượt mà, tuy nhiên đôi lúc thời gian load hơi lâu. Hy vọng sẽ được tối ưu tốc độ hơn nữa' },
+  { name: 'Lê Hoàng Long', role: 'User', avatar: '🧑', rating: 5, content: 'Rất thích cách bố trí các danh mục trong app. Có thể bổ sung thêm phần hướng dẫn chi tiết hơn cho người mới' },
+  { name: 'Phạm Thu Hương', role: 'User', avatar: '👩', rating: 4, content: 'Chương trình khuyến mãi hấp dẫn, nhưng đôi khi thông báo khuyến mãi hiển thị chưa đầy đủ. Mong cải thiện phần này' },
+  { name: 'Đỗ Minh Tuấn', role: 'User', avatar: '👨', rating: 4, content: 'App có nhiều lựa chọn đồ uống đa dạng, giao diện đẹp mắt. Nếu có thêm tính năng gợi ý theo sở thích người dùng thì càng tuyệt vời' },
+  { name: 'Bùi Đức Thắng', role: 'User', avatar: '👨', rating: 5, content: 'Dịch vụ chăm sóc khách hàng qua app rất nhanh chóng, đội ngũ hỗ trợ nhiệt tình. Cảm ơn team!' },
+  { name: 'Nguyễn Văn An', role: 'User', avatar: '👨‍💻', rating: 5, content: 'Giao diện app thân thiện, dễ sử dụng. Mong team phát triển thêm nhiều tính năng mới để trải nghiệm thú vị hơn!' },
+  { name: 'Trần Thanh Tâm', role: 'Business', avatar: '👨‍💼', rating: 3, content: 'Ứng dụng giúp dễ dàng tìm quán cà phê phù hợp để làm việc, họp nhóm hoặc gặp gỡ khách hàng, Tìm nhanh quán có wifi mạnh, không gian yên tĩnh, phòng họp riêng, Hỗ trợ xuất hóa đơn VAT. App chưa có cập nhập một số quán nhỏ' },
+  { name: 'Lý Hồng Nhung', role: 'Business', avatar: '👩‍💼', rating: 5, content: 'Tôi dễ dàng đăng menu quán để tiếp cận khách hàng văn phòng gần khu vực.' },
+  { name: 'Vũ Anh Tuấn', role: 'Business', avatar: '👨‍💼', rating: 4, content: 'Việc đăng thông tin khuyến mãi lên app giúp tôi giữ chân khách văn phòng đều đặn.' },
+  { name: 'Phạm Đăng Huy', role: 'Business', avatar: '👨', rating:4, content: 'Rất tiện lợi khi tôi có thể cập nhật hình ảnh menu quán mà không cần web riêng' },
+  { name: 'Võ Thị Lan', role: 'Business', avatar: '👩‍💻', rating: 3, content: 'Tsaôi gặp lỗi khi thanh toán bằng ví điện tử, mong team sớm fix lỗi này. Còn lại mọi thứ rất ổn' },
 ];
 const MOCK_PAYMENTS = [
   ...Array.from({ length: 21 }, (_, i) => ({
@@ -408,11 +400,21 @@ const DashboardAll = () => {
                 <div className="dashboard-reviews-title">Review mới nhất</div>
                 <div className="dashboard-reviews-list">
                   {reviews.map((r, idx) => (
-                    <div className="dashboard-review-item" key={r._id || idx}>
-                      <span className="dashboard-review-avatar">☕</span>
+                    <div className="dashboard-review-item" key={idx}>
+                      <span className="dashboard-review-avatar" style={{fontSize:'2.1rem'}}>{r.avatar}</span>
                       <div className="dashboard-review-content">
-                        <div className="dashboard-review-text">"{r.content}"</div>
-                        <div className="dashboard-review-rating">⭐ {r.rating} <span style={{color:'#8B5E3C', fontWeight:400, fontSize:'0.98rem', marginLeft:8}}>- {r.user}</span></div>
+                        <div style={{display:'flex', alignItems:'center', gap:8, marginBottom:2}}>
+                          <span style={{fontWeight:700, color:'#6B3F25', fontSize:'1.08rem'}}>{r.name}</span>
+                          <span style={{color:'#A9745B', fontWeight:500, fontSize:'0.98rem'}}>{r.role}</span>
+                        </div>
+                        <div className="dashboard-review-rating">
+                          {[...Array(5)].map((_, i) => (
+                            <span key={i} style={{color: i < r.rating ? '#FFD700' : '#ccc', fontSize:'1.1rem'}}>
+                              ⭐
+                            </span>
+                          ))}
+                        </div>
+                        <div className="dashboard-review-text" style={{marginTop:4}}>&quot;{r.content}&quot;</div>
                       </div>
                     </div>
                   ))}
