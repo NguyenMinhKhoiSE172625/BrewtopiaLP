@@ -35,11 +35,21 @@ const MOCK_USERS = [
   ...Array.from({ length: 3 }, (_, i) => ({ _id: i+1, name: `Admin ${i+1}`, role: 'admin', AccStatus: i === 2 ? 'vip' : 'premium' })),
   ...Array.from({ length: 22 }, (_, i) => ({ _id: i+4, name: `User ${i+1}`, role: 'user', AccStatus: i < 3 ? 'vip' : (i < 8 ? 'premium' : 'false') }))
 ];
-const MOCK_REVIEWS = Array.from({ length: 13 }, (_, i) => ({
-  _id: i+1,
-  content: `Đây là review số ${i+1}, app rất tuyệt vời!`,
-  rating: 4 + (i % 2)
-}));
+const MOCK_REVIEWS = [
+  { _id: 1, content: 'Quán rất đẹp, không gian yên tĩnh, mình rất thích!', rating: 5, user: 'Nguyễn Văn A' },
+  { _id: 2, content: 'Cà phê ngon, nhân viên thân thiện, sẽ quay lại!', rating: 5, user: 'Trần Thị B' },
+  { _id: 3, content: 'Không gian hơi nhỏ nhưng đồ uống ổn.', rating: 4, user: 'Lê Minh C' },
+  { _id: 4, content: 'Mình thích góc cửa sổ, view đẹp, nhạc chill.', rating: 5, user: 'Phạm Hồng D' },
+  { _id: 5, content: 'Đồ uống ra hơi lâu, nhưng bù lại rất ngon.', rating: 4, user: 'Vũ Thảo E' },
+  { _id: 6, content: 'Quán đông vào cuối tuần, nên đi sớm.', rating: 4, user: 'Ngô Quang F' },
+  { _id: 7, content: 'Có chỗ để xe rộng rãi, tiện lợi.', rating: 5, user: 'Đặng Kim G' },
+  { _id: 8, content: 'Giá hơi cao nhưng chất lượng xứng đáng.', rating: 4, user: 'Bùi Thanh H' },
+  { _id: 9, content: 'Wifi mạnh, làm việc cả buổi rất ổn.', rating: 5, user: 'Phan Quốc I' },
+  { _id: 10, content: 'Trang trí đẹp, nhiều góc sống ảo.', rating: 5, user: 'Lý Mỹ K' },
+  { _id: 11, content: 'Có nhiều loại bánh ngon, hợp với trà.', rating: 4, user: 'Tạ Hữu L' },
+  { _id: 12, content: 'Nhân viên phục vụ hơi chậm.', rating: 3, user: 'Đỗ Văn M' },
+  { _id: 13, content: 'Rất thích không gian ngoài trời ở đây.', rating: 5, user: 'Nguyễn Thị N' },
+];
 const MOCK_PAYMENTS = [
   ...Array.from({ length: 21 }, (_, i) => ({
     _id: i+1,
@@ -395,10 +405,13 @@ const DashboardAll = () => {
                       <span className="dashboard-review-avatar">☕</span>
                       <div className="dashboard-review-content">
                         <div className="dashboard-review-text">"{r.content}"</div>
-                        <div className="dashboard-review-rating">⭐ {r.rating}</div>
+                        <div className="dashboard-review-rating">⭐ {r.rating} <span style={{color:'#8B5E3C', fontWeight:400, fontSize:'0.98rem', marginLeft:8}}>- {r.user}</span></div>
                       </div>
                     </div>
                   ))}
+                </div>
+                <div style={{textAlign:'right', color:'#6B3F25', fontWeight:'bold', marginTop:'0.7rem', fontSize:'1.08rem'}}>
+                  Tổng review: {reviews.length}
                 </div>
               </div>
             </div>
