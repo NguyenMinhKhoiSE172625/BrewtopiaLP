@@ -4,6 +4,12 @@ import ParallaxWrapper from '../ParallaxWrapper/ParallaxWrapper';
 import './AppShowcase.css';
 import { FaApple, FaGooglePlay } from 'react-icons/fa';
 import { downloadAPK } from '../../services/downloadService';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
 
 const AppShowcase = () => {
   const features = [
@@ -68,41 +74,66 @@ const AppShowcase = () => {
           </motion.p>
         </ParallaxWrapper>
 
-        <div className="features-showcase">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              className={`feature-item zigzag ${index % 2 === 1 ? 'reverse' : ''}`}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: index * 0.15 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.03, boxShadow: "0 16px 48px rgba(139, 94, 60, 0.18)" }}
-            >
-              <div className="feature-zigzag-img">
-                <ParallaxWrapper speed={0.18} direction="vertical">
-                  <motion.img
-                    src={feature.image}
-                    alt={feature.title}
-                    className="feature-zigzag-image"
-                    whileHover={{ scale: 1.07, rotate: 2 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </ParallaxWrapper>
-              </div>
-              <div className="feature-zigzag-text">
+        {/* Thay thế phần features-showcase bằng Swiper */}
+        <div className="features-showcase-carousel">
+          <Swiper
+            modules={[Navigation, Pagination, EffectCoverflow]}
+            effect="coverflow"
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={1.15}
+            spaceBetween={30}
+            navigation
+            pagination={{ clickable: true }}
+            coverflowEffect={{
+              rotate: 18,
+              stretch: 0,
+              depth: 180,
+              modifier: 1.5,
+              slideShadows: true,
+            }}
+            style={{ paddingBottom: 60, paddingTop: 20 }}
+            breakpoints={{
+              700: { slidesPerView: 2.1 },
+              1024: { slidesPerView: 2.5 },
+            }}
+          >
+            {features.map((feature, index) => (
+              <SwiperSlide key={index}>
                 <motion.div
-                  className="feature-icon"
-                  whileHover={{ rotate: -10, scale: 1.2 }}
-                  transition={{ duration: 0.3 }}
+                  className="feature-item carousel"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: index * 0.15 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.03, boxShadow: "0 16px 48px rgba(139, 94, 60, 0.18)" }}
                 >
-                  {feature.icon}
+                  <div className="feature-carousel-img">
+                    <ParallaxWrapper speed={0.18} direction="vertical">
+                      <motion.img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="feature-carousel-image"
+                        whileHover={{ scale: 1.07, rotate: 2 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </ParallaxWrapper>
+                  </div>
+                  <div className="feature-carousel-text">
+                    <motion.div
+                      className="feature-icon"
+                      whileHover={{ rotate: -10, scale: 1.2 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {feature.icon}
+                    </motion.div>
+                    <h3>{feature.title}</h3>
+                    <p>{feature.description}</p>
+                  </div>
                 </motion.div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </div>
-            </motion.div>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         <ParallaxWrapper speed={0.1} direction="vertical">

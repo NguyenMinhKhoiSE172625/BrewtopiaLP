@@ -1,87 +1,98 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import AnimationWrapper from '../AnimationWrapper/AnimationWrapper';
-import ParallaxWrapper from '../ParallaxWrapper/ParallaxWrapper';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
 import './Hero.css';
 import { downloadAPK } from '../../services/downloadService';
+
+const particlesOptions = {
+  fullScreen: { enable: false },
+  background: { color: 'transparent' },
+  fpsLimit: 60,
+  particles: {
+    number: { value: 18, density: { enable: true, value_area: 800 } },
+    color: { value: ['#A9745B', '#6B3F25', '#e9ded6'] },
+    shape: { type: 'circle' },
+    opacity: { value: 0.18, random: true },
+    size: { value: 32, random: { enable: true, minimumValue: 8 } },
+    move: { enable: true, speed: 0.7, direction: 'none', random: true, straight: false, outModes: 'out' },
+  },
+  detectRetina: true,
+};
 
 const Hero = () => {
   return (
     <section className="hero" id="home">
-      <div className="hero-container">
-        <AnimationWrapper animation="fadeInLeft" delay={0.2}>
-          <ParallaxWrapper speed={0.2} direction="vertical">
-            <div className="hero-content">
-              <motion.h1
-                initial={{ opacity: 0, y: 50, z: 0 }}
-                animate={{ opacity: 1, y: 0, z: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}
-              >
-                <span style={{display: 'block'}}>Tìm Quán Cafe</span>
-                <span style={{display: 'block'}}>Hoàn Hảo Cho Bạn</span>
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 30, z: 0 }}
-                animate={{ opacity: 1, y: 0, z: 0 }}
-                transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}
-              >
-                Khám phá những quán cafe phù hợp với nhu cầu của bạn - từ không gian yên tĩnh để làm việc
-                đến những góc chill cùng bạn bè. Tìm kiếm theo tiêu chí: máy lạnh, wifi, không gian,
-                và nhiều hơn nữa.
-              </motion.p>
-              <motion.div
-                className="hero-buttons"
-                initial={{ opacity: 0, y: 20, z: 0 }}
-                animate={{ opacity: 1, y: 0, z: 0 }}
-                transition={{ duration: 0.6, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden' }}
-              >
-                <motion.a
-                  href="#features"
-                  className="primary-btn"
-                  whileHover={{ scale: 1.05, y: -2, z: 0 }}
-                  whileTap={{ scale: 0.95, z: 0 }}
-                  transition={{ duration: 0.2 }}
-                  style={{ willChange: 'transform' }}
-                >
-                  Khám phá ngay
-                </motion.a>
-                <motion.button
-                  onClick={downloadAPK}
-                  className="secondary-btn"
-                  whileHover={{ scale: 1.05, y: -2, z: 0 }}
-                  whileTap={{ scale: 0.95, z: 0 }}
-                  transition={{ duration: 0.2 }}
-                  style={{ willChange: 'transform' }}
-                >
-                  Tải ứng dụng
-                </motion.button>
-              </motion.div>
-            </div>
-          </ParallaxWrapper>
-        </AnimationWrapper>
-
-        <AnimationWrapper animation="fadeInRight" delay={0.4}>
-          <ParallaxWrapper speed={0.3} direction="vertical">
-            <div className="hero-image">
-              <ParallaxWrapper speed={0.2}>
-                <motion.img
-                  src="/brew_topia.png"
-                  alt="Brewtopia App Preview"
-                  whileHover={{ scale: 1.03, rotate: 1, z: 0 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  style={{
-                    willChange: 'transform',
-                    backfaceVisibility: 'hidden',
-                    transform: 'translateZ(0)'
-                  }}
-                />
-              </ParallaxWrapper>
-            </div>
-          </ParallaxWrapper>
-        </AnimationWrapper>
+      <div className="hero-particles-bg">
+        <Particles id="tsparticles" options={particlesOptions} />
+      </div>
+      <div className="hero-container modern centerized hero-maxwidth">
+        <div className="hero-content modern centerized">
+          <motion.div
+            className="hero-appname-block"
+            initial={{ opacity: 0, scale: 0.85, y: 60 }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: 'drop-shadow(0 8px 32px #A9745B44)' }}
+            transition={{ duration: 0.9, delay: 0.1, type: 'spring', stiffness: 60 }}
+          >
+            <motion.span
+              className="hero-appname super gradient-text"
+              initial={{ textShadow: 'none' }}
+              animate={{
+                textShadow: [
+                  '0 4px 32px #A9745B77',
+                  '0 8px 64px #6B3F2577',
+                  '0 4px 32px #A9745B77'
+                ],
+                scale: [1, 1.04, 1],
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, repeatType: 'reverse' }}
+              style={{ fontFamily: 'Abril Fatface, serif' }}
+            >
+              Brewtopia
+            </motion.span>
+            <motion.div
+              className="hero-appname-underline"
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.5, type: 'spring', stiffness: 80 }}
+            />
+            <motion.div
+              className="hero-appname-slogan strong"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.7, type: 'spring', stiffness: 60 }}
+            >
+              Cùng bạn chill, quán được deal
+            </motion.div>
+          </motion.div>
+          <motion.div
+            className="hero-buttons modern centerized"
+            initial={{ opacity: 0, scale: 0.85, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.0, type: 'spring', stiffness: 60 }}
+          >
+            <motion.a
+              href="#features"
+              className="primary-btn modern"
+              whileHover={{ scale: 1.07, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ duration: 0.2 }}
+            >
+              <span role="img" aria-label="search" style={{marginRight: 8}}>🔎</span>
+              Khám phá ngay
+            </motion.a>
+            <motion.button
+              onClick={downloadAPK}
+              className="secondary-btn modern"
+              whileHover={{ scale: 1.07, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ duration: 0.2 }}
+            >
+              <span role="img" aria-label="download" style={{marginRight: 8}}>⬇️</span>
+              Tải ứng dụng
+            </motion.button>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
