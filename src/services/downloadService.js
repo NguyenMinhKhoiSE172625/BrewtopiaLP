@@ -2,27 +2,24 @@
 export const downloadAPK = () => {
   // Hiển thị thông báo bắt đầu tải
   const toastId = showToast("Đang chuẩn bị tải file APK...", "info");
-  
+
   try {
-    // Chuyển đổi link Google Drive thành link tải trực tiếp
-    const googleDriveId = "1s-uUm9NgIEhXU9E3c5L3FLwsDrHPcaSI";
-    const directDownloadLink = `https://drive.google.com/uc?export=download&id=${googleDriveId}`;
-    
+    // Sử dụng link Google Drive mới
+    const directDownloadLink = "https://drive.google.com/file/d/1uICm1vmXNBpR_U5mnNTiBD30Xi6iM4_A/view?usp=sharing";
     // Tạo element link ẩn và trigger download
     const link = document.createElement('a');
     link.href = directDownloadLink;
-    link.download = 'Brewtopia.apk';
     link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
+
     // Hiển thị thông báo thành công
     setTimeout(() => {
       hideToast(toastId);
-      showToast("Tải file APK thành công! Kiểm tra thư mục Downloads của bạn.", "success");
+      showToast("Chuyển hướng đến trang tải APK trên Google Drive!", "success");
     }, 1000);
-    
+
   } catch (error) {
     console.error('Lỗi khi tải APK:', error);
     hideToast(toastId);
@@ -57,12 +54,12 @@ export const showToast = (message, type = "info") => {
     </div>
   `;
   document.body.appendChild(toast);
-  
+
   // Tự động ẩn toast sau 5 giây
   setTimeout(() => {
     hideToast(toastId);
   }, 5000);
-  
+
   return toastId;
 };
 

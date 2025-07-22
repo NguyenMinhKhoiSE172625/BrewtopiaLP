@@ -15,23 +15,13 @@ const plans = [
   },
   {
     name: 'VIP',
-    price: '99.000đ/tháng',
+    price: '79.000đ/tháng',
     features: [
       'Đặt bàn trước ưu tiên',
       'Nhận ưu đãi giảm giá tại các quán đối tác',
       'Tham gia sự kiện offline đặc biệt'
     ],
     highlight: true
-  },
-  {
-    name: 'Premium',
-    price: '199.000đ/tháng',
-    features: [
-      'Livestream sự kiện độc quyền',
-      'Tích điểm đổi quà cao cấp',
-      'Hỗ trợ khách hàng 24/7'
-    ],
-    highlight: false
   }
 ];
 

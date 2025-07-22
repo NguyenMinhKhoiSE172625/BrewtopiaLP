@@ -8,6 +8,12 @@ import { downloadAPK } from '../../services/downloadService';
 const AppShowcase = () => {
   const features = [
     {
+      title: "Giao Diện Thân Thiện",
+      description: "Brewtopia mang đến trải nghiệm mượt mà, hiện đại và gần gũi cho mọi người dùng.",
+      icon: "🌟",
+      image: "/homepage.jpg"
+    },
+    {
       title: "Tìm Kiếm Thông Minh",
       description: "Tìm quán cafe phù hợp với nhu cầu của bạn thông qua bộ lọc thông minh: máy lạnh, wifi, không gian, giá cả và nhiều tiêu chí khác.",
       icon: "🔍",
@@ -17,13 +23,13 @@ const AppShowcase = () => {
       title: "Cộng Đồng Sôi Nổi",
       description: "Tham gia vào cộng đồng người yêu cafe, chia sẻ trải nghiệm, đánh giá và khám phá những góc cafe mới lạ.",
       icon: "👥",
-      image: "/community-feature.png"
+      image: "/community-feature.jpg"
     },
     {
       title: "Bản Đồ Tương Tác",
       description: "Xem vị trí các quán cafe trên bản đồ, tìm đường đi nhanh nhất và khám phá những quán mới gần bạn.",
       icon: "🗺️",
-      image: "/map-feature.png"
+      image: "/map-feature.jpg"
     },
     {
       title: "Đặt Món & Đặt Bàn",
