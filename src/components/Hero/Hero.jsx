@@ -82,11 +82,14 @@ const Hero = () => {
               Khám phá ngay
             </motion.a>
             <motion.button
-              onClick={downloadAPK}
               className="secondary-btn modern"
               whileHover={{ scale: 1.07, y: -2 }}
               whileTap={{ scale: 0.96 }}
               transition={{ duration: 0.2 }}
+              as="a"
+              href="https://drive.google.com/file/d/1Q7ATae1vHkoPRRvjeN-Zlf1Sj9IS_YQn/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <span role="img" aria-label="download" style={{marginRight: 8}}>⬇️</span>
               Tải ứng dụng
